@@ -31,7 +31,7 @@ function fb_init() {
       // the user is logged in and has authenticated your
       // app, and response.authResponse supplies
       // the user's ID, a valid access token, a signed
-      // request, and the time the access token 
+      // request, and the time the access token
       // and signed request each expire
       var uid = response.authResponse.userID;
       var accessToken = response.authResponse.accessToken;
@@ -40,7 +40,7 @@ function fb_init() {
       getMyFriend()
       switchElement($('#getBT'), 'on');
     } else if (response.status === 'not_authorized') {
-      // the user is logged in to Facebook, 
+      // the user is logged in to Facebook,
       // but has not authenticated your app
       switchElement($('#fblogin'), 'on');
       console.log('has not authenticated your app');
@@ -59,7 +59,7 @@ function userInfo () {
     function (response) {
       if (response && !response.error) {
         /* handle the result */
-        var icon = "https://graph.facebook.com/" + response.id + 
+        var icon = "https://graph.facebook.com/" + response.id +
                                                         "/picture";
         $('#usericon').attr('src', icon).attr('traget', '_blank');
         $('#username').attr('href', response.link).html(response.name);
@@ -80,6 +80,22 @@ function switchElement(ele, operate) {
   }
 }
 
+function render(entries) {
+  var ret = '<ul>';
+  entries.forEach(function(entry) {
+    ret += '<li>';
+    if (entry.message) {
+      ret += entry.message;
+    }
+    if (entry.type === 'photo') {
+      ret += '<img src="https://graph.facebook.com/' + entry.object_id + '/picture" />';
+    }
+    ret += '</li>';
+  })
+  ret += '</ul>';
+  return ret;
+}
+
 function getUserFeed(id) {
   if (id == null) {
     id = 'me';
@@ -89,20 +105,19 @@ function getUserFeed(id) {
       function (response) {
         if (response && !response.error) {
           /* handle the result */
-          var text = [];
+          var entries = [];
           response.data.forEach(function (entry) {
-              if (entry.message != undefined && entry.from.id == id) {
-                text.push(entry.message);
+              if (entry.from.id == id) {
+                entries.push(entry);
               }
               if (entry.comments != undefined) {
                 entry.comments.data.forEach(function(comment) {
-                  text.push(comment.message);
+                  entries.push(comment);
                 });
               }
-              
+
           });
-          text = text.join('\n');
-          $('#feeds').html(text).css('border', '1px solid #f00');
+          $('#feeds').html(render(entries)).css('border', '1px solid #f00');
         }// end of if
       }
     );
