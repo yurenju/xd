@@ -14,7 +14,7 @@ $(document).ready(function() {
   });
 
   $('#getBT').click(function() {
-    runWordFreq($('#feeds').html());
+    runWordFreq($('#feeds').text());
   });
 });
 
@@ -149,9 +149,14 @@ function getMyFriend() {
 }
 
 function runWordFreq(text) {
-   var wordfreqOption = { workerUrl: 'js/wordfreq/src/wordfreq.worker.js' };
-   WordFreq(wordfreqOption).process(text, function(list) {
-    console.log('pizaList:' +list);
-    WordCloud(document.getElementById('wc-canvas-canvas'), { list: list } );
-   });
+  var xDegrees = calculateXD(text);
+  var wordfreqOption = { workerUrl: 'js/wordfreq/src/wordfreq.worker.js' };
+  WordFreq(wordfreqOption).process(xDegrees.processed, function(list) {
+    var pizaList = list.concat(xDegrees.scores);
+    pizaList.sort(function(a, b) {
+      return b[1]- a[1];
+    });
+    console.log('pizaList:' +pizaList);
+    WordCloud(document.getElementById('wc-canvas-canvas'), { list: pizaList } );
+  });
 }
