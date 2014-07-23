@@ -83,9 +83,21 @@ function switchElement(ele, operate) {
 function render(entries) {
   var ret = '<ul>';
   entries.forEach(function(entry) {
+    var xDegrees = null;
     ret += '<li>';
     if (entry.message) {
       ret += entry.message;
+      xDegrees = calculateXD(entry.message);
+      xDegrees.scores.sort(function(a, b) {
+        return b[1]- a[1];
+      });
+      xDegrees.scores.forEach(function(xd){
+        var scroes = parseInt(xd[1], 10);
+        if (scroes > 10) {
+          var fontSize = 20 + scroes;
+          ret += '<span style="font-size:' + fontSize + 'px; color:red;">' + xd[0] + '</span>';
+        }
+      });
     }
     if (entry.type === 'photo') {
       ret += '<img src="https://graph.facebook.com/' + entry.object_id + '/picture" />';
