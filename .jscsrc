@@ -1,0 +1,13 @@
+{
+    "preset": "google",
+    "additionalRules": [
+        "node_modules/jscs-jsdoc/lib/rules/*.js"
+    ],
+    "jsDoc": {
+    },
+    "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+    "excludeFiles": [
+      "public/vendor/**",
+      "public/test/**"
+    ]
+}
