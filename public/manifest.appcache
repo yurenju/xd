@@ -1,6 +1,42 @@
 CACHE MANIFEST
+# Time: Sat Jul 26 2014 02:18:06 GMT+0800 (CST)
 
 CACHE:
+contact.html
+fallback.html
+index.html
+left-sidebar.html
+no-sidebar.html
+right-sidebar.html
+up.html
+xd.html
+js/app_installer.js
+js/background.js
+js/fallback.js
+js/fb.js
+js/init.js
+js/jquery.dropotron.min.js
+js/main.js
+js/skel-layers.min.js
+js/skel.min.js
+js/vars.js
+js/vars_sample.js
+js/xd_calc.js
+style/font-awesome.min.css
+style/main.css
+style/skel.css
+style/style-mobile.css
+style/style-narrow.css
+style/style-narrower.css
+style/style-normal.css
+style/style-noscript.css
+style/style-wide.css
+style/style.css
+style/xd.css
+style/images/overlay.png
+style/icons/favicon.ico
+style/icons/apple-touch-icon-precomposed.png
+style/icons/icon128.png
 
 NETWORK:
 *

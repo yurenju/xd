@@ -1,0 +1,13 @@
+{
+  "name": "wordcloud2",
+  "homepage": "https://github.com/timdream/wordcloud2.js",
+  "_release": "266557863b",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "266557863b13a0963329b75357b9067f8f6c65ae"
+  },
+  "_source": "https://github.com/timdream/wordcloud2.js.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/timdream/wordcloud2.js.git"
+}

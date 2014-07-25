@@ -13,7 +13,7 @@ $(document).ready(function() {
      FB.login(function(response) {
        // handle the response
        switchElement($('#fblogin'), 'off');
-       switchElement($('#getBT'), 'on');
+       // switchElement($('#getBT'), 'on');
      }, {scope: 'email,user_friends,read_stream,export_stream,friends_photos'});
   });
 
@@ -64,7 +64,7 @@ function fb_init() {
       console.log('login!!!' + response.authResponse.userID);
       userInfo();
       getMyFriend()
-      switchElement($('#getBT'), 'on');
+      // switchElement($('#getBT'), 'on');
     } else if (response.status === 'not_authorized') {
       // the user is logged in to Facebook,
       // but has not authenticated your app
@@ -179,6 +179,7 @@ function getUserFeed(id) {
           });
           calDegrees(feedEntries);
           $('#feeds').html(render(feedEntries)).css('border', '1px solid #f00');
+          runWordFreq($('#feeds').text());
         }// end of if
       }
     );

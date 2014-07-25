@@ -1,0 +1,13 @@
+{
+  "name": "wordfreq",
+  "homepage": "https://github.com/timdream/wordfreq",
+  "_release": "1f98a9f270",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1f98a9f270008a0d372247ef3940abeb37466408"
+  },
+  "_source": "https://github.com/timdream/wordfreq.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/timdream/wordfreq.git"
+}

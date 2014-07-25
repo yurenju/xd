@@ -1,34 +1,164 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<!--
+	Twenty 1.0 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-
-  <head>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
-    <meta charset="utf-8">
-    <title>XDDDD</title>
-
-    <link rel="stylesheet" type="text/css" href="style/xd.css" />
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <script src="vendor/jquery/dist/jquery.min.js"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<head>
+		<title>^____^</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="style/ie/html5shiv.js"></script><![endif]-->
+		<script src="vendor/jquery/dist/jquery.min.js"></script>
     <script src="vendor/wordfreq/src/wordfreq.js"></script>
     <script src="vendor/wordcloud2/src/wordcloud2.js"></script>
-    <script src="js/xd_calc.js"></script>
+    <script src="vendor/color-thief/dist/color-thief.min.js"></script>
+    <script src="js/jquery.dropotron.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/xd_calc.js"></script>
     <script src="js/vars.js"></script>
     <script src="js/fb.js"></script>
-  </head>
-  <body>
-    <div id="userinfo" class="hidden">
-      <img id="usericon" />
-      <a href="#" id="username" target="_blank"></a>
-    </div>
-    <div id="friendlist">
-    </div>
-    <div id="feeds">
-    </div>
-    <canvas height="700" width="1400" style="" id="wc-canvas-canvas" lang=""></canvas>
-    <button type="button" id="fblogin" class="hidden"> Login </button>
-    <button type="button" id="getBT" class="hidden"> get feed </button>
-  </body>
+    <link rel="stylesheet" type="text/css" href="style/xd.css" />
+		<noscript>
+			<link rel="stylesheet" href="style/skel.css" />
+			<link rel="stylesheet" href="style/style.css" />
+			<link rel="stylesheet" href="style/style-wide.css" />
+			<link rel="stylesheet" href="style/style-noscript.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="style/ie/v8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="style/ie/v9.css" /><![endif]-->
+	</head>
+	<body class="index loading">
+	
+		<!-- Header -->
+			<header id="header" class="alt">
+				<h1 id="logo"><a href="index.html">Twenty <span>by HTML5 UP</span></a></h1>
+				<nav id="nav">
+					<ul>
+						<li class="current"><a href="index.html">Welcome</a></li>
+						<li class="submenu">
+							<a href="">Layouts</a>
+							<ul>
+								<li><a href="left-sidebar.html">Left Sidebar</a></li>
+								<li><a href="right-sidebar.html">Right Sidebar</a></li>
+								<li><a href="no-sidebar.html">No Sidebar</a></li>
+								<li><a href="contact.html">Contact</a></li>
+								<li class="submenu">
+									<a href="">Submenu</a>
+									<ul>
+										<li><a href="#">Dolore Sed</a></li>
+										<li><a href="#">Consequat</a></li>
+										<li><a href="#">Lorem Magna</a></li>
+										<li><a href="#">Sed Magna</a></li>
+										<li><a href="#">Ipsum Nisl</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li><a href="#" class="button special">Sign Up</a></li>
+					</ul>
+				</nav>
+			</header>
 
+		<!-- Banner -->		
+			<section id="banner">
+				
+				<!--
+					".inner" is set up as an inline-block so it automatically expands
+					in both directions to fit whatever's inside it. This means it won't
+					automatically wrap lines, so be sure to use line breaks where
+					appropriate (<br />).
+				-->
+				<div class="inner">
+					
+					<header>
+						<h2>TWENTY</h2>
+					</header>
+					<p>This is <strong>Twenty</strong>, a free<br />
+					responsive template<br />
+					by <a href="http://html5up.net">HTML5 UP</a>.</p>
+					<footer>
+						<ul class="buttons vertical">
+							<li><a href="#main" class="button fit scrolly">Tell Me More</a></li>
+							<li><button type="button" id="fblogin" class="button hidden"> Login </button></li>
+						</ul>
+					</footer>
+				
+				</div>
+				
+			</section>
+		
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					<!-- <span class="icon fa-bar-chart-o"></span> -->
+					<h2>Friend List</h2>
+				</header>
+					
+				<!-- Friend List -->
+					<section class="wrapper style2 container special-alt">
+						<div class="row half">
+							<div id="friendlist">
+	    				</div>			
+						</div>
+					</section>
+
+				<!-- World Cloud -->
+					<section class="wrapper style2 container special-alt">
+						<div class="row half">
+							<button type="button" id="getBT" class="button hidden"> go wordscloud </button>
+							<div id="feeds" class="hidden"></div>
+    					<canvas height="700" width="1024" style="" id="wc-canvas-canvas" lang=""></canvas>	
+						</div>
+					</section>	
+				
+				<!-- Search Result -->
+					<section class="wrapper style2 container special-alt">
+						<div class="row half">
+							<input id="xdSearch" type="text"/><br/>
+					    <button type="button" id="searchBT" class="button"> search </button>
+					    <div id="result"></div>		
+						</div>
+					</section>
+					
+			</article>
+
+		<!-- CTA -->
+			<section id="cta">
+			
+				<header>
+					<h2>Ready to do <strong>something</strong>?</h2>
+					<p>Proin a ullamcorper elit, et sagittis turpis integer ut fermentum.</p>
+				</header>
+				<footer>
+					<ul class="buttons">
+						<li><a href="#" class="button special">Take My Money</a></li>
+						<li><a href="#" class="button">LOL Wut</a></li>
+					</ul>
+				</footer>
+			
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					<!-- <li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
+					-->
+					<li><a href="https://github.com/XDDDDD/xd" class="icon circle fa-github"><span class="label">Github</span></a></li>
+					<!-- <li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li> -->
+				</ul>
+				
+				<span class="copyright">&copy; Untitled. All rights reserved. Design: <a href="http://html5up.net">HTML5 UP</a>.</span>
+			
+			</footer>
+
+	</body>
 </html>
