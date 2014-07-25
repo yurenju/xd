@@ -12,7 +12,9 @@
   ],
   "dependencies": {
     "l20n": "1.0.0-rc",
+    "jquery": "2.1.1",
     "wordfreq": "https://github.com/timdream/wordfreq.git",
-    "wordcloud2": "https://github.com/timdream/wordcloud2.js.git"
+    "wordcloud2": "https://github.com/timdream/wordcloud2.js.git",
+    "color-thief": ""
   }
 }
