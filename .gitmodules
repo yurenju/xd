@@ -1,6 +1,6 @@
 [submodule "js/wordfreq"]
-	path = js/wordfreq
+	path = public/js/wordfreq
 	url = https://github.com/timdream/wordfreq.git
 [submodule "js/wordcloud2"]
-	path = js/wordcloud2
+	path = public/js/wordcloud2
 	url = https://github.com/timdream/wordcloud2.js.git
