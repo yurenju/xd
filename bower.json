@@ -11,6 +11,8 @@
     "bower_components"
   ],
   "dependencies": {
-    "l20n": "1.0.0-rc"
+    "l20n": "1.0.0-rc",
+    "wordfreq": "https://github.com/timdream/wordfreq.git",
+    "wordcloud2": "https://github.com/timdream/wordcloud2.js.git"
   }
 }
