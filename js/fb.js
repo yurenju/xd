@@ -1,8 +1,12 @@
 'use strict';
 var uid = null;
 var accessToken = null;
+var xdinfo = null;
+var feedEntries = [];
 
 $(document).ready(function() {
+  // init XDInfo
+  xdinfo = new XDinfo(xdRegexes);
   $.ajaxSetup({ cache: true });
   $.getScript('//connect.facebook.net/en_UK/all.js', fb_init);
   $('#fblogin').click(function() {
@@ -15,6 +19,28 @@ $(document).ready(function() {
 
   $('#getBT').click(function() {
     runWordFreq($('#feeds').text());
+  });
+
+  $('#searchBT').click(function(){    
+    var searchText = $('#xdSearch').val();
+    var xds = xdinfo.getItems(searchText);
+    var showEntries = [];
+    if (xds.items.length !== 0) {
+      showEntries = [];
+      xds.items.sort(function(a, b) {
+        return b.scroes- a.scroes;
+      });
+      console.log('HA:' + JSON.stringify(xds.items));
+      for(var i in xds.items) {
+        var index = parseInt(xds.items[i].id);
+        if (feedEntries[index]) {
+          showEntries.push(feedEntries[index]);
+        }
+      }
+      console.log('HA:' + JSON.stringify(showEntries));
+      $('#result').html(render(showEntries)).css('border', '1px solid #f00');
+
+    }
   });
 });
 
@@ -82,30 +108,53 @@ function switchElement(ele, operate) {
 
 function render(entries) {
   var ret = '<ul>';
+  var index = 0;
   entries.forEach(function(entry) {
-    var xDegrees = null;
-    ret += '<li>';
+    ret += '<li data-index="' + index + '">';
     if (entry.message) {
       ret += entry.message;
-      xDegrees = calculateXD(entry.message);
-      xDegrees.scores.sort(function(a, b) {
-        return b[1]- a[1];
-      });
-      xDegrees.scores.forEach(function(xd){
-        var scroes = parseInt(xd[1], 10);
-        if (scroes > 10) {
-          var fontSize = 20 + scroes;
-          ret += '<span style="font-size:' + fontSize + 'px; color:red;">' + xd[0] + '</span>';
-        }
-      });
     }
     if (entry.type === 'photo') {
-      ret += '<img src="https://graph.facebook.com/' + entry.object_id + '/picture" />';
+      ret += '<img src="https://graph.facebook.com/' +
+                                               entry.object_id + '/picture" />';
     }
     ret += '</li>';
+    index += 1;
   })
   ret += '</ul>';
   return ret;
+}
+
+function calDegrees(entries) {
+  console.log(JSON.stringify(entries));
+  var index = 0;
+  entries.forEach(function(entry) {
+    if (entry.message) {
+      var xDegrees = null;
+      xDegrees = calculateXD(entry.message);
+
+      xDegrees.scores.sort(function(a, b) {
+        return b[1]- a[1];
+      });
+
+      xDegrees.scores.forEach(function(xd){
+        var scroes = parseInt(xd[1], 10);
+        if (scroes > 10) {
+          var obj = {};
+          obj.id = index;
+          obj.scroes = scroes;
+          xdinfo.updateItem(xd[0], obj, scroes);
+          var fontSize = 20 + scroes;
+          // ret += '<span class="xdBT" data-xd="' + xd[0] +
+          //  '" style="font-size:' + fontSize + 'px; color:red;">' 
+          //   + xd[0] + '</span>';
+        }
+      });
+    }
+    index += 1;
+  });
+
+  console.log('done!!:' + JSON.stringify(xdinfo));
 }
 
 function getUserFeed(id) {
@@ -117,19 +166,19 @@ function getUserFeed(id) {
       function (response) {
         if (response && !response.error) {
           /* handle the result */
-          var entries = [];
           response.data.forEach(function (entry) {
               if (entry.from.id == id) {
-                entries.push(entry);
+                feedEntries.push(entry);
               }
               if (entry.comments != undefined) {
                 entry.comments.data.forEach(function(comment) {
-                  entries.push(comment);
+                  feedEntries.push(comment);
                 });
               }
 
           });
-          $('#feeds').html(render(entries)).css('border', '1px solid #f00');
+          calDegrees(feedEntries);
+          $('#feeds').html(render(feedEntries)).css('border', '1px solid #f00');
         }// end of if
       }
     );
@@ -161,10 +210,12 @@ function getMyFriend() {
 }
 
 function runWordFreq(text) {
-  var xDegrees = calculateXD(text);
+  // var xDegrees = calculateXD(text);
+  var xDegrees = xdinfo.getScores();
+
   var wordfreqOption = { workerUrl: 'js/wordfreq/src/wordfreq.worker.js' };
-  WordFreq(wordfreqOption).process(xDegrees.processed, function(list) {
-    var pizaList = list.concat(xDegrees.scores);
+  WordFreq(wordfreqOption).process(text, function(list) {
+    var pizaList = list.concat(xDegrees);
     pizaList.sort(function(a, b) {
       return b[1]- a[1];
     });
@@ -172,3 +223,56 @@ function runWordFreq(text) {
     WordCloud(document.getElementById('wc-canvas-canvas'), { list: pizaList } );
   });
 }
+
+function XDinfo(dict) {
+  this.infoBox = [];
+  this.init(dict);
+}
+
+XDinfo.prototype = {
+  init: function xd_init(dict) {
+    for(var key in dict) {
+      var obj = {};
+      obj.name = key;
+      obj.items = [];
+      obj.scores = 0; // default scroes
+      this.infoBox.push(obj);
+    }
+  },
+
+  updateItem: function xd_updateItem(key, keyInfo, scores) {
+    var xd = this.getItems(key);
+    xd.scores = xd.scores + scores;
+    xd.items.push(keyInfo);
+  },
+
+  getItems: function xd_getItem(key) {
+    for(var i in this.infoBox) {
+      var xd = this.infoBox[i];
+      if (xd.name === key) {
+        console.log('test: ' + JSON.stringify(xd));
+        return xd;
+      }
+    }
+
+    return false;
+  },
+
+  getScores: function xd_getScores() {
+    var xDegrees = [];
+    for(var i in this.infoBox) {
+      var xd = this.infoBox[i];
+      if (xd.scores === 0) {
+        xDegrees[xDegrees.length] = [xd.name, 10];
+      } else {
+        xDegrees[xDegrees.length] = [xd.name, xd.scores];
+      }
+    }
+
+    return xDegrees;
+  },
+
+  close: function xd_close() {
+    this.infoBox = [];
+  }
+};
