@@ -213,7 +213,7 @@ function runWordFreq(text) {
   // var xDegrees = calculateXD(text);
   var xDegrees = xdinfo.getScores();
 
-  var wordfreqOption = { workerUrl: 'js/wordfreq/src/wordfreq.worker.js' };
+  var wordfreqOption = { workerUrl: 'vendor/wordfreq/src/wordfreq.worker.js' };
   WordFreq(wordfreqOption).process(text, function(list) {
     var pizaList = list.concat(xDegrees);
     pizaList.sort(function(a, b) {
