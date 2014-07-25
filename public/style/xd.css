@@ -4,6 +4,8 @@
 
  #friendlist ul li {
  	cursor: pointer;
+  display: inline-block;
+  width: 15em;
  }
 
  #friendlist ul li:hover {
