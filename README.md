@@ -13,8 +13,12 @@
 
    To fetch dependent packages, enter the webapplate folder and run
 
-        $ git submodule
         $ npm install
+
+   or run `bower install` only if you not tend to use commands
+   
+         $ bower install
+
 
 ### Develop Hosted webapp(With dynamic/static web Server)
 
