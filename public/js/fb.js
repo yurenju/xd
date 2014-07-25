@@ -100,9 +100,9 @@ function userInfo () {
 
 function switchElement(ele, operate) {
   if (operate === 'off') {
-    ele.addClass('hidden');
+    ele.addClass('hideItem');
   } else {
-    ele.removeClass('hidden');
+    ele.removeClass('hideItem');
   }
 }
 
