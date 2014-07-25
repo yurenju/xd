@@ -1,0 +1,16 @@
+{
+  "name": "webapplate",
+  "description": "",
+  "homepage": "",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "l20n": "1.0.0-rc"
+  }
+}
