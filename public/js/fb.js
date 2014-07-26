@@ -3,34 +3,6 @@ var uid = null;
 var accessToken = null;
 var xdinfo = null;
 
-function keyword(searchText) {
-  var xds = xdinfo.getItems(searchText);
-  var showEntries = [];
-  if (xds.items.length !== 0) {
-    showEntries = [];
-    xds.items.sort(function(a, b) {
-      return b.scroes- a.scroes;
-    });
-    for(var i in xds.items) {
-      var index = parseInt(xds.items[i].id);
-      if (xdinfo.feedEntries[index]) {
-        showEntries.push(xdinfo.feedEntries[index]);
-      }
-    }
-    $('#result').html(render(showEntries)).css('border', '1px solid #f00');
-  }
-}
-
-function smoothScrolling(hash) {
-  var target = $(hash);
-  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-  if (target.length) {
-    $('html,body').animate({
-      scrollTop: target.offset().top
-    }, 1000);
-  }
-}
-
 $(document).ready(function() {
 
   $.ajaxSetup({ cache: true });
@@ -47,10 +19,25 @@ $(document).ready(function() {
     runWordFreq($('#feeds').text());
   });
 
-
-
   $('#searchBT').click(function(){
-    keyword($('#xdSearch').val());
+    var searchText = $('#xdSearch').val();
+    var xds = xdinfo.getItems(searchText);
+    var showEntries = [];
+    if (xds.items.length !== 0) {
+      showEntries = [];
+      xds.items.sort(function(a, b) {
+        return b.scroes- a.scroes;
+      });
+      for(var i in xds.items) {
+        var index = parseInt(xds.items[i].id);
+        if (xdinfo.feedEntries[index]) {
+          showEntries.push(xdinfo.feedEntries[index]);
+        }
+      }
+      showResult(showEntries);
+      //$('#result').html(render(showEntries)).css('border', '1px solid #f00');
+
+    }
   });
 
   $('#tell-me-more').click(function() {
@@ -85,10 +72,6 @@ $(document).ready(function() {
 
   $('#back-to-banner').click(function() {
     $('#cube-outer').removeClass('friend-list');
-  });
-  $('#back-to-friend-list').click(function() {
-    $('#cube-outer').removeClass('word-cloud');
-    $('#cube-outer').addClass('friend-list');
   });
 });
 
@@ -245,8 +228,6 @@ function getMyFriend() {
     function (response) {
       if (response && !response.error) {
         showFriendList(response.data, function(id, name) {
-          $('#cube-outer').removeClass('friend-list');
-          $('#cube-outer').addClass('word-cloud');
           getUserFeed(id);
           showFriendIcon(id, name);
           if (xdinfo === null) {
@@ -291,17 +272,20 @@ function runWordFreq(text) {
             }
 
             el.removeAttr('hidden');
-            el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 40) + 'px');
+            el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 5) + 'px');
             el.css('width', dimension.w + 'px');
             el.css('height', dimension.h + 'px');
 
             hoverLabelElement.text(JSON.stringify(item));
           },
+<<<<<<< HEAD
           click: function(item, dimension, evt) {
             searchIIIAPI(item[0]);
             keyword(item[0]);
             smoothScrolling('#friendWrapper');
           },
+=======
+>>>>>>> tem
           shape: function(theta) {
             for (var i = 1; i < thumbsUp.length; i++) {
               if (thumbsUp[i-1].theta < theta && theta <= thumbsUp[i].theta ) {
@@ -406,3 +390,57 @@ XDinfo.prototype = {
     this.infoBox = [];
   }
 };
+
+function showResult(entries) {
+  entries.forEach(function(entry) {
+    var message = null, 
+        image = null,
+        comments = null;
+    var date = entry.created_time.substring(0, entry.created_time.lastIndexOf('T'));
+  
+    if (entry.message) {
+      message = document.createElement('p');
+      var newContent = document.createTextNode(date + ':' + entry.message + ':' +entry.id);
+      message.appendChild(newContent);
+    }
+    if (entry.type === 'photo' && entry.picture) {
+      var path =  entry.picture;
+      var last = path.substring(path.lastIndexOf('/') + 1, path.length);
+      var imgURL = 'https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-xaf1/' + last;
+      image = document.createElement('img');
+      image.src = imgURL;
+    }
+    if (entry.comments != undefined) {
+      var allComments = entry.comments.data;
+      comments = document.createElement('ul');
+      comments.classList.add('comments');
+      allComments.forEach(function(Comment) {
+        var li = document.createElement('li');
+        var C_message = document.createElement('p');
+        var span = document.createElement('span');
+        var C_newContent = document.createTextNode(Comment.message);
+        var name = document.createTextNode(Comment.from.name);
+        span.appendChild(name);
+        C_message.appendChild(C_newContent);
+        li.appendChild(span);
+        li.appendChild(C_message);
+        comments.appendChild(li);
+      });
+    }
+
+    if (message !== null || image!== null) {
+      var showli = document.createElement('li');
+      if (message !== null) {
+        showli.appendChild(message);
+      }
+      if (image!== null) {
+        showli.appendChild(image);
+      }
+      if (comments !== null) {
+        showli.appendChild(comments);
+      }
+      $('#resultList').append(showli);
+    }
+  });
+
+}
