@@ -490,7 +490,7 @@ function showResult(entries, searchText) {
     result = result +  '</div>';
     if (message !== null) {
       result =  result + '<div class="comment_detail">' +
-                '<p><span>' + searchText + '</span>' + message +'</p>' +
+                '<p><span>[' + searchText + ']&nbsp;&nbsp;</span>' + message +'</p>' +
                 '</div>';
     }
 

@@ -241,9 +241,6 @@ text.hidden {
   background-color:#fff;
   background-size:116px auto;
 }
-div.hideItem{
-  display: none;
-}
 
 section#friendWrapper{
   margin-bottom: 0px;
@@ -283,6 +280,10 @@ section#friendWrapper{
 
 #friendInfoBox {
   display: inline-block;
+}
+
+#friendInfoBox.hideItem, #fblogin.hideItem{
+  display: none;
 }
 
 .fb_wording {

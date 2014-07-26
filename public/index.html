@@ -33,37 +33,27 @@
 		</noscript>
 		<!--[if lte IE 8]><link rel="stylesheet" href="style/ie/v8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="style/ie/v9.css" /><![endif]-->
-    <link rel="stylesheet" type="text/css" href="style/xd.css" />
     <link href="style/hackathon.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="style/xd.css" /> 
   </head>
 	<body class="index loading">
 
 		<!-- Header -->
 			<header id="header" class="alt">
-				<h1 id="logo"><a href="index.html">Twenty <span>by HTML5 UP</span></a></h1>
+				<h1 id="logo"><a href="index.html">^_____^</span></a></h1>
 				<nav id="nav">
 					<ul>
-						<li class="current"><a href="index.html">Welcome</a></li>
 						<li class="submenu">
-							<a href="">Layouts</a>
+							<a href="">Pages</a>
 							<ul>
-								<li><a href="left-sidebar.html">Left Sidebar</a></li>
-								<li><a href="right-sidebar.html">Right Sidebar</a></li>
-								<li><a href="no-sidebar.html">No Sidebar</a></li>
-								<li><a href="contact.html">Contact</a></li>
-								<li class="submenu">
-									<a href="">Submenu</a>
-									<ul>
-										<li><a href="#">Dolore Sed</a></li>
-										<li><a href="#">Consequat</a></li>
-										<li><a href="#">Lorem Magna</a></li>
-										<li><a href="#">Sed Magna</a></li>
-										<li><a href="#">Ipsum Nisl</a></li>
-									</ul>
-								</li>
+								<li><a href="#friendlist-container">Friend List</a></li>
+								<li><a href="#wordcloud-container">Word Cloud</a></li>
+								<li><a href="#friendWrapper">Result</a></li>
+								<li><a href="#footer">more info</a></li>
 							</ul>
 						</li>
-						<li><a href="#" class="button special">Sign Up</a></li>
+            <li class="current"><a href="index.html">Welcome</a></li>
+            
 					</ul>
 				</nav>
 			</header>
@@ -149,14 +139,15 @@
 
 				<!-- Search Result -->
         <section id="friendWrapper" class="wrapper style3 container special">
+
           <header class="friendInfoBoxHeader">
-            <div id="friendInfoBox" class="avatar hideItem">
+            <div id="friendInfoBox" class="avatar">
               <div id="friendAvatar"></div>
               <p id="friendName"></p>
             </div>
             <p class="fb_wording">
-            	<span id="fb_keyword">like</span>
-            	<span>X <span id="fb_count">1230</span> msg</span>
+            	<span id="fb_keyword"></span>
+            	<span>X <span id="fb_count"></span> msg</span>
             </p>
             <div id="related-ptt" class="related-ptt"></div>
             <h2></h2>
@@ -165,8 +156,9 @@
         </section>
 					<section class="wrapper style2 container special-alt">
 						<div class="row half">
-							<input id="xdSearch" type="text"/><br/>
-					    <button type="button" id="searchBT" class="button"> search </button>
+              <a id="back-to-wordcloud" class="scrolly btn_back btn_uparrow" href="#wordcloud" title="Back to wordcloud"></a>
+							<input id="xdSearch" type="text" style="display:none"/><br/>
+					    <button type="button" id="searchBT" class="button" style="display:none"> search </button>
 					    <div id="result">
                 <ul id="comment_wrap">
                 </ul>
