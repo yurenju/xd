@@ -17,6 +17,7 @@ function keyword(searchText) {
         showEntries.push(xdinfo.feedEntries[index]);
       }
     }
+    $('#comment_wrap').html('');
     showResult(showEntries);
     //$('#result').html(render(showEntries)).css('border', '1px solid #f00');
   }
