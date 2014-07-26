@@ -1,10 +1,8 @@
- #friendlist ul li {
- 	cursor: pointer;
-  display: inline-block;
-  width: 15em;
- }
+#friendlist {
+  width: 100%;
+}
 
- #friendlist ul li:hover {
- 	font-weight:bold;
- }
-
+#friendlist circle, #friendlist text {
+  cursor: pointer;
+  cursor: hand;
+}

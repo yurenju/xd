@@ -186,24 +186,14 @@ function getUserFeed(id) {
 }
 
 function getMyFriend() {
-  FB.api(
-    "/me/friends/", {limit: 500},
+  var fql = 'SELECT uid, name, mutual_friend_count FROM user WHERE' +
+            '   uid IN (SELECT uid2 FROM friend WHERE uid1 = me())' +
+            '   ORDER BY mutual_friend_count DESC';
+  FB.api('/fql?q=' + encodeURIComponent(fql), {limit: 500},
     function (response) {
       if (response && !response.error) {
-        var ul = document.createElement("ul");
-        var docfrag = document.createDocumentFragment();
-        response.data.forEach(
-          function (entry) {
-            var li = document.createElement("li");
-            li.textContent = entry.name;
-            li.dataset.id = entry.id;
-            docfrag.appendChild(li);
-          }
-        );
-        ul.appendChild(docfrag);
-        document.getElementById('friendlist').appendChild(ul);
-        ul.addEventListener('click', function(e) {
-          getUserFeed(e.target.dataset.id);
+        showFriendList(response.data, function(id, name) {
+          getUserFeed(id);
         });
       }
     }
