@@ -267,6 +267,8 @@ function runWordFreq(text) {
   var hoverElement = $('#wc-canvas-hover');
   var hoverLabelElement = $('#wc-canvas-hover-label');
 
+
+
   var wordfreqOption = { workerUrl: 'vendor/wordfreq/src/wordfreq.worker.js' };
   WordFreq(wordfreqOption).process(normalText.processed, function(list) {
     var pizaList = list.concat(xDegrees);
@@ -275,6 +277,7 @@ function runWordFreq(text) {
     });
     //console.log('pizaList:' +pizaList);
     $.getJSON('js/thumbs-up.json').then(function(thumbsUp) {
+      $('#cube').removeClass('loading');
       WordCloud(document.getElementById('wc-canvas-canvas'),
         {
           list: pizaList,

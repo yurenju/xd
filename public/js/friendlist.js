@@ -126,6 +126,7 @@
                     return color(f.value * 61);
                   })
                   .on("click", function() {
+                    $('#cube').addClass('loading');
                     smoothScrolling('#wordcloud-break');
                     if (listener) {
                       listener(f.uid, f.name);
