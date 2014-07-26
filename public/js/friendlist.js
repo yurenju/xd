@@ -40,6 +40,8 @@
           if (d2 < r2) return minDistance = 0, true; // within a circle
           var d = Math.sqrt(d2) - p[2];
           if (d < minDistance) minDistance = d;
+          if (minDistance < 1.5)
+            return true;
         }
         return !minDistance || x1 > rx2 || x2 < rx1 || y1 > ry2 || y2 < ry1; // or outside search radius
       });

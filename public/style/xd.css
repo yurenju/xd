@@ -43,7 +43,7 @@
    height: 200px;
    border: 2px solid black;
    line-height: 196px;
-   font-size: 50px;
+   font-size: 40px;
    font-weight: bold;
    color: #50b9de;
    text-align: center;
@@ -136,3 +136,9 @@
         -o-transform: translateZ( -100px ) rotateX(   90deg );
            transform: translateZ( -100px ) rotateX(   90deg );
  }
+
+#change-face {
+  position: absolute;
+  right: 25em;
+  top: 15em;
+}

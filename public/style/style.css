@@ -774,7 +774,6 @@
 			-o-animation-fill-mode: forwards;
 			-ms-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;
-			background: rgba(0, 0, 0, 0.2);
 			color: white;
 			display: inline-block;
 			opacity: 0;
@@ -806,6 +805,7 @@
 				letter-spacing: 0.1em;
 				margin: 0;
 				text-transform: uppercase;
+				margin-top: 1em;
 			}
 
 				#banner .inner p a {
