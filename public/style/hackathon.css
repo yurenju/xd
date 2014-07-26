@@ -150,10 +150,8 @@ p.fb_wording {
 p.fb_wording span {
   font-size: 36px;
   font-weight: normal;
-<<<<<<< HEAD
 }
 a.btn_spread {
-  width: 100px;
   height: 18px;
   line-height: 18px;
   display: block;
@@ -163,7 +161,19 @@ a.btn_spread {
   background: url("../images/icon_spread.png") left top no-repeat;
 }
 a.btn_spread:hover {
-  background-position: left bottom;
+  background-position: left -18px;
+}
+a.btn_collapse {
+  height: 18px;
+  line-height: 18px;
+  display: block;
+  color: #fff;
+  font-size: 12px;
+  padding: 0 0 0 22px;
+  background: url("../images/icon_spread.png") left -36px no-repeat;
+}
+a.btn_collapse:hover {
+  background-position: left -54px;
 }
 div.btn_scroll {
   width: 36px;
@@ -228,4 +238,70 @@ div.circle_score div.circle_score_pie div.pie_s {
   width: 45px;
   background-color: green;
 }
+ul#comment_wrap {
+  width: 758px;
+  background: url("../images/comment_bg.png") 120px top repeat-y;
+  padding-left: 50px;
+}
+ul#comment_wrap li {
+  width: 100%;
+  /* comment_content end */
 
+}
+ul#comment_wrap li div.circle_score {
+  display: inline-block;
+  vertical-align: top;
+}
+ul#comment_wrap li div.comment_content {
+  width: 655px;
+  display: inline-block;
+  background: url("../images/comment_arrow.png") left 15px no-repeat;
+  margin: 12px 0 0 4px;
+  padding-left: 35px;
+}
+ul#comment_wrap li div.comment_content div.comment_date {
+  height: 18px;
+  width: 635px;
+  margin-bottom: 5px;
+  padding-left: 10px;
+}
+ul#comment_wrap li div.comment_content div.comment_date p,
+ul#comment_wrap li div.comment_content div.comment_date time {
+  color: #fff;
+  line-height: 18px;
+  font-size: 12px;
+  float: left;
+}
+ul#comment_wrap li div.comment_content div.comment_date time {
+  margin-right: 12px;
+}
+ul#comment_wrap li div.comment_content div.comment_date a.btn_spread,
+ul#comment_wrap li div.comment_content div.comment_date a.btn_collapse {
+  float: right;
+}
+ul#comment_wrap li div.comment_content div.comment_detail {
+  width: 625px;
+  background-color: #fff;
+  padding: 10px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+ul#comment_wrap li div.comment_content div.comment_detail p {
+  font-size: 14px;
+  line-height: 22px;
+  color: #44eace;
+}
+ul#comment_wrap li div.comment_content div.comment_detail p span {
+  color: #ff8b00;
+}
+ul#comment_wrap li div.comment_content div.comment_img {
+  width: 645px;
+  margin: 15px 0 10px 0;
+  height: 135px;
+  background: red;
+}
+ul#comment_wrap li div.comment_content p.comment_info {
+  color: #fff;
+  font-size: 12px;
+}
