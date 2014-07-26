@@ -253,10 +253,10 @@ ul#comment_wrap li div.circle_score {
   vertical-align: top;
 }
 ul#comment_wrap li div.comment_content {
-  width: 655px;
+  width: 620px;
   display: inline-block;
   background: url("../images/comment_arrow.png") left 15px no-repeat;
-  margin: 12px 0 0 4px;
+  margin: 12px 0 45px 9px;
   padding-left: 35px;
 }
 ul#comment_wrap li div.comment_content div.comment_date {
