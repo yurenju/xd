@@ -280,3 +280,23 @@ section#friendWrapper{
   overflow:hidden;
   padding-bottom: 5px;
 }
+
+#friendInfoBox {
+  display: inline-block;
+}
+
+.fb_wording {
+  display: inline-block;
+  vertical-align: 60%;
+  margin-left: 0.5em;
+}
+
+.friendInfoBoxHeader {
+  text-align: left;
+}
+
+div.circle_score {
+  line-height: 56px;
+  text-align: center;
+  font-size: 25px;
+}
