@@ -168,6 +168,19 @@
            transform: translateZ( -100px ) rotateX(   90deg );
  }
 
+ #cube.spin {
+  transition: none;
+  -webkit-animation: spin_animation 4s linear 0s infinite;
+     -moz-animation: spin_animation 4s linear 0s infinite;
+       -o-animation: spin_animation 4s linear 0s infinite;
+          animation: spin_animation 4s linear 0s infinite;
+ }
+
+ @-webkit-keyframes spin_animation { from { transform: translateZ( -100px ) rotateY( 0deg ); } to { transform: translateZ( -100px ) rotateY( 360deg ); }  }
+    @-moz-keyframes spin_animation { from { transform: translateZ( -100px ) rotateY( 0deg ); } to { transform: translateZ( -100px ) rotateY( 360deg ); }  }
+      @-o-keyframes spin_animation { from { transform: translateZ( -100px ) rotateY( 0deg ); } to { transform: translateZ( -100px ) rotateY( 360deg ); }  }
+         @keyframes spin_animation { from { transform: translateZ( -100px ) rotateY( 0deg ); } to { transform: translateZ( -100px ) rotateY( 360deg ); }  }
+
 #change-face {
   position: absolute;
   right: 25em;

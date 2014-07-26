@@ -54,12 +54,14 @@ $(document).ready(function() {
   });
 
   $('#tell-me-more').click(function() {
+    box.addClass('spin');
     $('#cube-outer').addClass('friend-list');
   });
 
   var prev = 'right';
   var box = $('.cube-container > div > div');
   box.addClass('show-' + prev);
+
   var emoticons = ['(>_<)', '(^_-)', '(´･ω･`)', '(ー_ー)!!', '( ･ิω･ิ)',
     'ఠ_ఠ', '(ಥ_ಥ)', '(❀╹◡╹)'];
   var sides = ['front', 'back', 'right', 'left', 'top', 'bottom'];
