@@ -116,13 +116,13 @@
                     return color(f.value * 61);
                   })
                   .on("click", function() {
-                    window.location.hash = '#wordcloud';
+                    window.location.hash = '#wordcloud-break';
                     if (listener) {
                       listener(f.uid, f.name);
                     }
                   });
-    
-    
+
+
     node.append('circle')
         .attr('class', 'base')
         .attr('r', 0)

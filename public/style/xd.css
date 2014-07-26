@@ -47,10 +47,10 @@
 }
 
 #cube-outer.word-cloud {
-  -webkit-transform: translate(400px, 1630px) scale(0.3);
-     -moz-transform: translate(400px, 1630px) scale(0.3);
-       -o-transform: translate(400px, 1630px) scale(0.3);
-          transform: translate(400px, 1630px) scale(0.3);
+  -webkit-transform: translate(400px, 1680px) scale(0.3);
+     -moz-transform: translate(400px, 1680px) scale(0.3);
+       -o-transform: translate(400px, 1680px) scale(0.3);
+          transform: translate(400px, 1680px) scale(0.3);
 }
 
  #cube {
@@ -223,4 +223,8 @@ div.hideItem{
 section#friendWrapper{
   margin-bottom: 0px;
   padding: 2em 5em;
+}
+
+#wordcloud-break {
+  height: 50px;
 }
