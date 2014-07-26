@@ -29,7 +29,7 @@ var xdRegexes = {
   'der': /der/g,
   'q_q': /q_*q/g
 };
-  
+
 (function(exports) {
 
   function calculateXD(text) {
@@ -39,7 +39,7 @@ var xdRegexes = {
     for(var key in xdRegexes) {
       matchedResult = matchAndCalculate(processed, key, xdRegexes[key]);
       processed = matchedResult.processed;
-      xDegrees[xDegrees.length] = [key, matchedResult.score + 10];
+      xDegrees[xDegrees.length] = [key, matchedResult.score];
     }
     return {
       'processed': processed,
