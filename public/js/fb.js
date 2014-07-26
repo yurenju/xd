@@ -310,7 +310,7 @@ function runWordFreq(text) {
             }
 
             el.removeAttr('hidden');
-            el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 5) + 'px');
+            el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 40) + 'px');
             el.css('width', dimension.w + 'px');
             el.css('height', dimension.h + 'px');
 
@@ -428,11 +428,11 @@ XDinfo.prototype = {
 
 function showResult(entries) {
   entries.forEach(function(entry) {
-    var message = null, 
+    var message = null,
         image = null,
         comments = null;
     var date = entry.created_time.substring(0, entry.created_time.lastIndexOf('T'));
-  
+
     if (entry.message) {
       message = entry.message;
       // message = document.createElement('p');
@@ -495,7 +495,7 @@ function showResult(entries) {
     if (image !== null) {
       result =  result + '<div class="comment_img"><img  style="height:130px;" src="' + image + '"></div>';
     }
-    
+
     result = result + '</div>' + '</li>';
     $('#comment_wrap').append(result);
   });
