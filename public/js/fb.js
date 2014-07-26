@@ -21,7 +21,7 @@ $(document).ready(function() {
     runWordFreq($('#feeds').text());
   });
 
-  $('#searchBT').click(function(){    
+  $('#searchBT').click(function(){
     var searchText = $('#xdSearch').val();
     var xds = xdinfo.getItems(searchText);
     var showEntries = [];
@@ -146,7 +146,7 @@ function calDegrees(entries) {
           xdinfo.updateItem(xd[0], obj, scroes);
           var fontSize = 20 + scroes;
           // ret += '<span class="xdBT" data-xd="' + xd[0] +
-          //  '" style="font-size:' + fontSize + 'px; color:red;">' 
+          //  '" style="font-size:' + fontSize + 'px; color:red;">'
           //   + xd[0] + '</span>';
         }
       });
@@ -221,7 +221,21 @@ function runWordFreq(text) {
       return b[1]- a[1];
     });
     console.log('pizaList:' +pizaList);
-    WordCloud(document.getElementById('wc-canvas-canvas'), { list: pizaList } );
+    $.getJSON('/js/thumbs-up.json').then(function(thumbsUp) {
+      WordCloud(document.getElementById('wc-canvas-canvas'),
+        {
+          list: pizaList,
+          shape: function(theta) {
+            for (var i = 1; i < thumbsUp.length; i++) {
+              if (thumbsUp[i-1].theta < theta && theta <= thumbsUp[i].theta ) {
+                return thumbsUp[i].r;
+              }
+            }
+            return 0;
+          }
+        }
+      );
+    });
   });
 }
 
