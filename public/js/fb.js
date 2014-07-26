@@ -211,7 +211,7 @@ function runWordFreq(text) {
       return b[1]- a[1];
     });
     console.log('pizaList:' +pizaList);
-    $.getJSON('/js/thumbs-up.json').then(function(thumbsUp) {
+    $.getJSON('js/thumbs-up.json').then(function(thumbsUp) {
       WordCloud(document.getElementById('wc-canvas-canvas'),
         {
           list: pizaList,
