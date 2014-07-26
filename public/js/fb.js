@@ -43,6 +43,10 @@ $(document).ready(function() {
     }
   });
 
+  $('#tell-me-more').click(function() {
+    $('#cube-outer').addClass('friend-list');
+  });
+
   var prev = 'right';
   var box = $('.cube-container > div')
   box.addClass('show-' + prev);
