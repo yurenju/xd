@@ -106,6 +106,7 @@
                     return color(f.value * 61);
                   })
                   .on("click", function() {
+                    window.location.hash = '#wordcloud';
                     if (listener) {
                       listener(f.uid, f.name);
                     }
