@@ -105,6 +105,10 @@ $(document).ready(function() {
     $('#cube').removeClass('spin');
     $('#cube-outer').removeClass('friend-list');
   });
+  $('#back-to-friend-list').click(function() {
+    $('#cube-outer').removeClass('word-cloud');
+    $('#cube-outer').addClass('friend-list');
+  });
 });
 
 function fb_init() {
@@ -260,6 +264,8 @@ function getMyFriend() {
     function (response) {
       if (response && !response.error) {
         showFriendList(response.data, function(id, name) {
+          $('#cube-outer').removeClass('friend-list');
+          $('#cube-outer').addClass('word-cloud');
           getUserFeed(id);
           showFriendIcon(id, name);
           if (xdinfo === null) {
