@@ -201,9 +201,7 @@ function getUserFeed(id) {
               }
               if (entry.comments != undefined) {
                 entry.comments.data.forEach(function(comment) {
-                  if (comment.from.id == id) {
-                    xdinfo.feedEntries.push(comment);
-                  }
+                  xdinfo.feedEntries.push(comment);
                 });
               }
 
