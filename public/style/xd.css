@@ -180,6 +180,14 @@
   animation-duration: 1s;
  }
 
+ #cube > figure {
+   transition: background-color 1s;
+}
+
+#cube.loading > figure {
+  background: red;
+ }
+
  @-webkit-keyframes spin_animation { from { transform: translateZ( -100px ) rotateY( 0deg ); } to { transform: translateZ( -100px ) rotateY( 360deg ); }  }
     @-moz-keyframes spin_animation { from { transform: translateZ( -100px ) rotateY( 0deg ); } to { transform: translateZ( -100px ) rotateY( 360deg ); }  }
       @-o-keyframes spin_animation { from { transform: translateZ( -100px ) rotateY( 0deg ); } to { transform: translateZ( -100px ) rotateY( 360deg ); }  }
