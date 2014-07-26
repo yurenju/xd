@@ -158,3 +158,8 @@ p.fb_wording span {
 div.hideItem{
   display: none;
 }
+
+section#friendWrapper{
+  margin-bottom: 0px;
+  padding: 2em 5em; 
+}
