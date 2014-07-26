@@ -14,11 +14,12 @@ function keyword(searchText) {
     for(var i in xds.items) {
       var index = parseInt(xds.items[i].id);
       if (xdinfo.feedEntries[index]) {
+        xdinfo.feedEntries[index].scroes = xds.items[i].scroes;
         showEntries.push(xdinfo.feedEntries[index]);
       }
     }
     $('#comment_wrap').html('');
-    showResult(showEntries);
+    showResult(showEntries, searchText, xds.items.scroes);
     //$('#result').html(render(showEntries)).css('border', '1px solid #f00');
   }
 }
@@ -426,12 +427,14 @@ XDinfo.prototype = {
   }
 };
 
-function showResult(entries) {
+function showResult(entries, searchText) {
   entries.forEach(function(entry) {
     var message = null,
         image = null,
         comments = null;
     var date = entry.created_time.substring(0, entry.created_time.lastIndexOf('T'));
+    var whoSaid = entry.from.name;
+    var scroes = entry.scroes;
 
     if (entry.message) {
       message = entry.message;
@@ -448,8 +451,6 @@ function showResult(entries) {
     }
     // if (entry.comments != undefined) {
     //   var allComments = entry.comments.data;
-    //   comments = document.createElement('ul');
-    //   comments.classList.add('comments');
     //   allComments.forEach(function(Comment) {
     //     var li = document.createElement('li');
     //     var C_message = document.createElement('p');
@@ -464,31 +465,19 @@ function showResult(entries) {
     //   });
     // }
 
-    // if (message !== null || image!== null) {
-    //   var showli = document.createElement('li');
-    //   if (message !== null) {
-    //     showli.appendChild(message);
-    //   }
-    //   if (image!== null) {
-    //     showli.appendChild(image);
-    //   }
-    //   if (comments !== null) {
-    //     showli.appendChild(comments);
-    //   }
-    //   $('#comment_wrap').append(showli);
-    // }
-
     var result = '<li>' +
-      '<div class="circle_score"></div>' +
+      '<div class="circle_score">' + scroes + '</div>' +
       '<div class="comment_content">' +
         '<div class="comment_date">' +
-          '<p><time>' + date + '</time>PYchen said</p>' +
-          '<a class="btn_spread" href="#" title="展開留言">' +
-          '展開留言</a><!-- 收合換 btn_collapse class-->' +
-        '</div>';
+          '<p><time>' + date + '</time>' + whoSaid + '</p>';
+    if (comments !== null) {
+      result = result + '<a class="btn_spread" href="#" title="展開留言">' +
+          '展開留言</a><!-- 收合換 btn_collapse class-->';
+    }
+    result = result +  '</div>';
     if (message !== null) {
       result =  result + '<div class="comment_detail">' +
-                '<p><span>like</span>' + message +'</p>' +
+                '<p><span>' + searchText + '</span>' + message +'</p>' +
                 '</div>';
     }
 
