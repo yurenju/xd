@@ -20,6 +20,7 @@ $(document).ready(function() {
   });
 
   $('#searchBT').click(function(){
+    $('#comment_wrap').html('');
     var searchText = $('#xdSearch').val();
     var xds = xdinfo.getItems(searchText);
     var showEntries = [];
@@ -278,14 +279,11 @@ function runWordFreq(text) {
 
             hoverLabelElement.text(JSON.stringify(item));
           },
-<<<<<<< HEAD
           click: function(item, dimension, evt) {
             searchIIIAPI(item[0]);
             keyword(item[0]);
             smoothScrolling('#friendWrapper');
           },
-=======
->>>>>>> tem
           shape: function(theta) {
             for (var i = 1; i < thumbsUp.length; i++) {
               if (thumbsUp[i-1].theta < theta && theta <= thumbsUp[i].theta ) {
@@ -399,48 +397,70 @@ function showResult(entries) {
     var date = entry.created_time.substring(0, entry.created_time.lastIndexOf('T'));
   
     if (entry.message) {
-      message = document.createElement('p');
-      var newContent = document.createTextNode(date + ':' + entry.message + ':' +entry.id);
-      message.appendChild(newContent);
+      message = entry.message;
+      // message = document.createElement('p');
+      // var newContent = document.createTextNode(date + ':' + entry.message + ':' +entry.id);
+      // message.appendChild(newContent);
     }
     if (entry.type === 'photo' && entry.picture) {
       var path =  entry.picture;
       var last = path.substring(path.lastIndexOf('/') + 1, path.length);
-      var imgURL = 'https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-xaf1/' + last;
-      image = document.createElement('img');
-      image.src = imgURL;
+      image = 'https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-xaf1/' + last;
+      // image = document.createElement('img');
+      // image.src = imgURL;
     }
-    if (entry.comments != undefined) {
-      var allComments = entry.comments.data;
-      comments = document.createElement('ul');
-      comments.classList.add('comments');
-      allComments.forEach(function(Comment) {
-        var li = document.createElement('li');
-        var C_message = document.createElement('p');
-        var span = document.createElement('span');
-        var C_newContent = document.createTextNode(Comment.message);
-        var name = document.createTextNode(Comment.from.name);
-        span.appendChild(name);
-        C_message.appendChild(C_newContent);
-        li.appendChild(span);
-        li.appendChild(C_message);
-        comments.appendChild(li);
-      });
+    // if (entry.comments != undefined) {
+    //   var allComments = entry.comments.data;
+    //   comments = document.createElement('ul');
+    //   comments.classList.add('comments');
+    //   allComments.forEach(function(Comment) {
+    //     var li = document.createElement('li');
+    //     var C_message = document.createElement('p');
+    //     var span = document.createElement('span');
+    //     var C_newContent = document.createTextNode(Comment.message);
+    //     var name = document.createTextNode(Comment.from.name);
+    //     span.appendChild(name);
+    //     C_message.appendChild(C_newContent);
+    //     li.appendChild(span);
+    //     li.appendChild(C_message);
+    //     comments.appendChild(li);
+    //   });
+    // }
+
+    // if (message !== null || image!== null) {
+    //   var showli = document.createElement('li');
+    //   if (message !== null) {
+    //     showli.appendChild(message);
+    //   }
+    //   if (image!== null) {
+    //     showli.appendChild(image);
+    //   }
+    //   if (comments !== null) {
+    //     showli.appendChild(comments);
+    //   }
+    //   $('#comment_wrap').append(showli);
+    // }
+
+    var result = '<li>' +
+      '<div class="circle_score"></div>' +
+      '<div class="comment_content">' +
+        '<div class="comment_date">' +
+          '<p><time>' + date + '</time>PYchen said</p>' +
+          '<a class="btn_spread" href="#" title="展開留言">' +
+          '展開留言</a><!-- 收合換 btn_collapse class-->' +
+        '</div>';
+    if (message !== null) {
+      result =  result + '<div class="comment_detail">' +
+                '<p><span>like</span>' + message +'</p>' +
+                '</div>';
     }
 
-    if (message !== null || image!== null) {
-      var showli = document.createElement('li');
-      if (message !== null) {
-        showli.appendChild(message);
-      }
-      if (image!== null) {
-        showli.appendChild(image);
-      }
-      if (comments !== null) {
-        showli.appendChild(comments);
-      }
-      $('#resultList').append(showli);
+    if (image !== null) {
+      result =  result + '<div class="comment_img"><img  style="height:130px;" src="' + image + '"></div>';
     }
+    
+    result = result + '</div>' + '</li>';
+    $('#comment_wrap').append(result);
   });
 
 }
