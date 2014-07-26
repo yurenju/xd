@@ -4,7 +4,7 @@ var accessToken = null;
 var xdinfo = null;
 
 $(document).ready(function() {
-  
+
   $.ajaxSetup({ cache: true });
   $.getScript('//connect.facebook.net/en_UK/all.js', fb_init);
   $('#fblogin').click(function() {
@@ -142,7 +142,7 @@ function render(entries) {
     ret += '<li data-index="' + index + '">';
     if (entry.message) {
       ret += entry.message;
-    }      
+    }
     if (entry.type === 'photo' && entry.picture) {
       var path =  entry.picture;
       var last = path.substring(path.lastIndexOf("/") + 1, path.length);
@@ -186,7 +186,7 @@ function calDegrees(entries) {
 }
 
 function getUserFeed(id) {
-  console.log('user id' +  id); 
+  console.log('user id' +  id);
   if (id == null) {
     id = 'me';
   }
@@ -242,6 +242,9 @@ function runWordFreq(text) {
   var normalText = calculateXD(text);
   var xDegrees = xdinfo.getScores();
 
+  var hoverElement = $('#wc-canvas-hover');
+  var hoverLabelElement = $('#wc-canvas-hover-label');
+
   var wordfreqOption = { workerUrl: 'vendor/wordfreq/src/wordfreq.worker.js' };
   WordFreq(wordfreqOption).process(normalText.processed, function(list) {
     var pizaList = list.concat(xDegrees);
@@ -254,6 +257,21 @@ function runWordFreq(text) {
         {
           list: pizaList,
           backgroundColor: '#83D3C9',
+          hover: function(item, dimension, evt) {
+            console.log("item: " + JSON.stringify(item));
+            var el = hoverElement;
+            if (!item) {
+              el.attr('hidden', true);
+              return;
+            }
+
+            el.removeAttr('hidden');
+            el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 5) + 'px');
+            el.css('width', dimension.w + 'px');
+            el.css('height', dimension.h + 'px');
+
+            hoverLabelElement.text(JSON.stringify(item));
+          },
           shape: function(theta) {
             for (var i = 1; i < thumbsUp.length; i++) {
               if (thumbsUp[i-1].theta < theta && theta <= thumbsUp[i].theta ) {

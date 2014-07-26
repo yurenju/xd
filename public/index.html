@@ -122,7 +122,7 @@
 
 						<div class="row half">
 							<div id="friendlist-container">
-								<a id="back-to-banner" class="scrolly btn_back btn_account" href="#banner" title="Back to account"></a>
+								<a id="back-to-banner" class="scrolly btn_back btn_uparrow" href="#banner" title="Back to account"></a>
 								<div id="friendlist">
 		    				</div>
 	    				</div>
@@ -132,10 +132,13 @@
 				<!-- World Cloud -->
 					<section id="wordcloud" class="wrapper style2 container special-alt">
 
-						<div class="row half">
+						<div id="wordcloud-container" class="row half">
 							<button type="button" id="getBT" class="button hideItem"> go wordscloud </button>
 							<div id="feeds" class="hideItem"></div>
     					<canvas height="700" width="1024" style="" id="wc-canvas-canvas" lang=""></canvas>
+    					<div id="wc-canvas-hover" hidden>
+    					  <span id="wc-canvas-hover-label"></span>
+    					</div>
 						</div>
 					</section>
 
