@@ -19,7 +19,10 @@ function keyword(searchText) {
       }
     }
     $('#comment_wrap').html('');
-    showResult(showEntries, searchText, xds.items.scroes);
+    showResult(showEntries, searchText);
+    $('#fb_count').text(xds.scores);
+    $('#fb_keyword').text(searchText);
+
     //$('#result').html(render(showEntries)).css('border', '1px solid #f00');
   }
 }
