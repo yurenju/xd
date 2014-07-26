@@ -151,15 +151,3 @@ p.fb_wording span {
   font-size: 36px;
   font-weight: normal;
 }
-#friendAvatar{
-  background-color:#fff;
-  background-size:116px auto;
-}
-div.hideItem{
-  display: none;
-}
-
-section#friendWrapper{
-  margin-bottom: 0px;
-  padding: 2em 5em; 
-}
