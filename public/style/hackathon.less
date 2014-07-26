@@ -2,7 +2,7 @@
 body {
    font-family: 'Quicksand', sans-serif;
    font-weight: 300;
-   background-color:#44eace;
+   background-color:#999;
 }
 .face{
 	width:200px;
@@ -95,3 +95,50 @@ a.btn_back.btn_cloud{
 		.btn_shadow_hover;
 	}
 }
+a.btn_back.btn_uparrow{
+	background:#19b8dd url("../images/icon_uparrow.png") center center no-repeat;
+	&:hover{
+		background-color:#0c8ea3;
+		.btn_shadow_hover;
+	}
+}
+div.avatar{
+	width:124px;
+	height:124px;
+	display:block;
+	border-radius:50%;
+	background-color:#44eace;
+	position:relative;
+	div{
+		width:116px;
+		height:58px;
+		border-radius:124px 124px 0 0;
+		position:absolute;
+		left:4px;
+		top:4px;
+	}
+	p{
+		width:124px;
+		font-size:18px;
+		color:#fff;
+		text-align:center;
+		position:absolute;
+		left:4px;
+		bottom:30px;
+		font-weight:normal;
+	}
+}
+
+p.fb_wording{
+		font-size:72px;
+		font-weight:bold;
+		font-style:italic;
+		color:#44eace;
+	span{
+		font-size:36px;
+		font-weight:normal;
+	}
+}
+
+
+
