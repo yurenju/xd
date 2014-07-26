@@ -10,6 +10,7 @@
     if ((now - tokenTime) < min30) {
       console.log('use cached token');
       callback(cachedToken);
+      return;
     }
     tokenTime = (new Date()).getTime();
     var data = {
