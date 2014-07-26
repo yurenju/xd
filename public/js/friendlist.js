@@ -55,6 +55,7 @@
   window.showFriendList = function(friends, listener) {
     var totalValue = 0;
     var maxValue = 0;
+    friends = friends.splice(0, 100);
     friends.forEach(function(p) {
       p.value = p.mutual_friend_count + 1;
       totalValue += p.value;
@@ -76,8 +77,9 @@
     d3.timer(function() {
       var f = friends[friends.length - friendCount];
 
+      var suggestdRadius = MAX_RADIUS * (f.value / maxValue);
       var circle = createCircle(1,
-                                MAX_RADIUS + f.value - maxValue,
+                                suggestdRadius < 8 ? 8 : suggestdRadius,
                                 width - 2 * MAX_RADIUS,
                                 height - 2 * MAX_RADIUS, 5);
       var node = svg.append('g')
@@ -102,9 +104,7 @@
                       }
                     });
       node.append('circle')
-
           .attr('r', 0)
-          
           .transition()
             .attr('r', circle[2]);
       node.append("text")
