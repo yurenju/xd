@@ -55,7 +55,8 @@
     return best;
   }
 
-  function createFriendCircle(container, svg, f, width, height, maxValue) {
+  function createFriendCircle(container, svg, f, width, height, maxValue,
+                              listener) {
     var suggestdRadius = MAX_RADIUS * (f.value / maxValue);
     var circle = createCircle(1,
                               suggestdRadius < 8 ? 8 : suggestdRadius,
@@ -147,7 +148,7 @@
     var selfNode = createMySelf(svg, width, height);
     d3.timer(function() {
       var f = friends[friends.length - friendCount];
-      createFriendCircle(container, svg, f, width, height, maxValue);
+      createFriendCircle(container, svg, f, width, height, maxValue, listener);
       return !(--friendCount);
     });
   };
