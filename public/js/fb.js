@@ -226,6 +226,7 @@ function getMyFriend() {
       if (response && !response.error) {
         showFriendList(response.data, function(id, name) {
           getUserFeed(id);
+          showFriendIcon(id, name);
           if (xdinfo === null) {
             xdinfo = new XDinfo(xdRegexes);
           } else  {
@@ -265,6 +266,38 @@ function runWordFreq(text) {
       );
     });
   });
+}
+
+function showFriendIcon(id, name) {
+  //friendAvatar, friendName
+  var avatarURL = "https://graph.facebook.com/" + id + "/picture?type=large";
+  $('#friendAvatar').css('background', 'url(' + avatarURL + ') center center no-repeat');
+  var getFontSize = calcFontSize($('#friendName'), 16, name, 64 * 3);
+  console.log('avatarURL:' + getFontSize);
+  $('#friendName').html(name).css('font-size', getFontSize);
+  switchElement($('#friendInfoBox'), 'on');
+  function calcFontSize(container, maxSize, text, target) {
+    var fontSize = maxSize;
+    var fontFamily = container.css('font-family');
+    while (textWidth(text, fontSize + 'px', fontFamily) > target &&
+           fontSize > 3) {
+      fontSize--;
+    }
+    return fontSize + 'px';
+  }
+
+  function textWidth(text, fontSize, fontFamily){
+    jQuery('body').append('<span>' + text + '</span>');
+    var _lastspan = jQuery('span').last();
+
+    _lastspan.css({
+      'font-size' : fontSize,
+      'font-family' : fontFamily
+    })
+    var width =_lastspan.width();
+    _lastspan.remove();
+    return width;
+  };
 }
 
 function XDinfo(dict) {
