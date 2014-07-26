@@ -3,6 +3,34 @@ var uid = null;
 var accessToken = null;
 var xdinfo = null;
 
+function keyword(searchText) {
+  var xds = xdinfo.getItems(searchText);
+  var showEntries = [];
+  if (xds.items.length !== 0) {
+    showEntries = [];
+    xds.items.sort(function(a, b) {
+      return b.scroes- a.scroes;
+    });
+    for(var i in xds.items) {
+      var index = parseInt(xds.items[i].id);
+      if (xdinfo.feedEntries[index]) {
+        showEntries.push(xdinfo.feedEntries[index]);
+      }
+    }
+    $('#result').html(render(showEntries)).css('border', '1px solid #f00');
+  }
+}
+
+function smoothScrolling(hash) {
+  var target = $(hash);
+  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+  if (target.length) {
+    $('html,body').animate({
+      scrollTop: target.offset().top
+    }, 1000);
+  }
+}
+
 $(document).ready(function() {
 
   $.ajaxSetup({ cache: true });
@@ -19,24 +47,10 @@ $(document).ready(function() {
     runWordFreq($('#feeds').text());
   });
 
-  $('#searchBT').click(function(){
-    var searchText = $('#xdSearch').val();
-    var xds = xdinfo.getItems(searchText);
-    var showEntries = [];
-    if (xds.items.length !== 0) {
-      showEntries = [];
-      xds.items.sort(function(a, b) {
-        return b.scroes- a.scroes;
-      });
-      for(var i in xds.items) {
-        var index = parseInt(xds.items[i].id);
-        if (xdinfo.feedEntries[index]) {
-          showEntries.push(xdinfo.feedEntries[index]);
-        }
-      }
-      $('#result').html(render(showEntries)).css('border', '1px solid #f00');
 
-    }
+
+  $('#searchBT').click(function(){
+    keyword($('#xdSearch').val());
   });
 
   $('#tell-me-more').click(function() {
@@ -69,6 +83,10 @@ $(document).ready(function() {
 
   $('#back-to-banner').click(function() {
     $('#cube-outer').removeClass('friend-list');
+  });
+  $('#back-to-friend-list').click(function() {
+    $('#cube-outer').removeClass('word-cloud');
+    $('#cube-outer').addClass('friend-list');
   });
 });
 
@@ -225,6 +243,8 @@ function getMyFriend() {
     function (response) {
       if (response && !response.error) {
         showFriendList(response.data, function(id, name) {
+          $('#cube-outer').removeClass('friend-list');
+          $('#cube-outer').addClass('word-cloud');
           getUserFeed(id);
           showFriendIcon(id, name);
           if (xdinfo === null) {
@@ -266,11 +286,15 @@ function runWordFreq(text) {
             }
 
             el.removeAttr('hidden');
-            el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 5) + 'px');
+            el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 40) + 'px');
             el.css('width', dimension.w + 'px');
             el.css('height', dimension.h + 'px');
 
             hoverLabelElement.text(JSON.stringify(item));
+          },
+          click: function(item, dimension, evt) {
+            keyword(item[0]);
+            smoothScrolling('#friendWrapper');
           },
           shape: function(theta) {
             for (var i = 1; i < thumbsUp.length; i++) {
