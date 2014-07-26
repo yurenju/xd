@@ -228,3 +228,30 @@ section#friendWrapper{
 #wordcloud-break {
   height: 50px;
 }
+
+.related-ptt {
+  display: none;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  position: absolute;
+  width: 350px;
+  height: 150px;
+  background-color: #44EACE;
+  transform: translate(500px, -140px);
+}
+
+.related-ptt ul {
+  padding: 10px;
+  text-align: left;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.related-ptt li {
+  text-overflow: ellipsis;
+  white-space:nowrap;
+  overflow:hidden;
+  padding-bottom: 5px;
+}

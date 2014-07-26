@@ -293,6 +293,7 @@ function runWordFreq(text) {
             hoverLabelElement.text(JSON.stringify(item));
           },
           click: function(item, dimension, evt) {
+            searchIIIAPI(item[0]);
             keyword(item[0]);
             smoothScrolling('#friendWrapper');
           },
