@@ -40,16 +40,19 @@ function post(host, path, data, callback) {
 var min30 = 60 * 1000 * 30;
 var tokenTime;
 var cachedToken;
+var usageCount = 0;
 
 function requestToken(callback) {
   console.log('request token');
   var now = (new Date()).getTime();
-  if ((now - tokenTime) < min30) {
+  if ((now - tokenTime) < min30 && usageCount < 5) {
     console.log('use cached token');
+    usageCount++;
     callback(cachedToken);
     return;
   }
   tokenTime = (new Date()).getTime();
+  usageCount = 0;
   var data = {
     'id': 'af028008ce5492cbb15f06098e847e63',
     'secret_key': '4c6703c5dc240720d2213eb5c50fbbd2'
