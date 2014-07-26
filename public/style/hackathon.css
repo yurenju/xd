@@ -150,6 +150,7 @@ p.fb_wording {
 p.fb_wording span {
   font-size: 36px;
   font-weight: normal;
+<<<<<<< HEAD
 }
 a.btn_spread {
   width: 100px;
@@ -227,3 +228,4 @@ div.circle_score div.circle_score_pie div.pie_s {
   width: 45px;
   background-color: green;
 }
+
