@@ -70,6 +70,10 @@ $(document).ready(function() {
     prev = next;
     box.addClass('show-' + next);
   });
+
+  $('#back-to-banner').click(function() {
+    $('#cube-outer').removeClass('friend-list');
+  });
 });
 
 function fb_init() {

@@ -1,3 +1,9 @@
+
+
+#friendlist-container {
+  width: 100%;
+}
+
 #friendlist {
   width: 100%;
 }
@@ -155,4 +161,8 @@
   position: absolute;
   right: 25em;
   top: 15em;
+}
+
+svg:not(:root) {
+  overflow: visible;
 }
