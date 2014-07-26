@@ -1,14 +1,27 @@
 (function() {
 
+  function textWidth(text, fontSize, fontFamily){
+    jQuery('body').append('<span>' + text + '</span>');
+    var _lastspan = jQuery('span').last();
+
+    _lastspan.css({
+      'font-size' : fontSize,
+      'font-family' : fontFamily
+    })
+    var width =_lastspan.width();
+    _lastspan.remove();
+    return width;
+  };
+
   window.showFriendList = function(friends, listener) {
     friends.forEach(function(p) {
-      p.value = p.mutual_friend_count;
+      p.value = p.mutual_friend_count + 1;
     });
     var container = $('#friendlist');
     container.html('');
     var color = d3.scale.category20c();
     var width = container.width();
-    var height = 630;
+    var height = 680;
     var svg = d3.select('#friendlist').append('svg')
                 .attr('width', width)
                 .attr('height', height)
@@ -41,8 +54,19 @@
     node.append("text")
         .attr("dy", ".3em")
         .style("text-anchor", "middle")
-      .style("fill","black")
-        .text(function(d) { return d.name.substring(0, d.r / 3); });
+        .style("fill","black")
+        .style("font-size", function(d) {
+          var fontSize = 24;
+          var fontFamily = container.css('font-family');
+          while (textWidth(d.name, fontSize + 'px', fontFamily) > (d.r + 20) &&
+                 fontSize > 3) {
+            fontSize--;
+          }
+          return fontSize + 'px';
+        })
+        .text(function(d) {
+          return (d.r < 12) ? '...' : d.name;
+        });
   };
 
 })();

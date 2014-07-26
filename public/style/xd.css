@@ -6,3 +6,7 @@
   cursor: pointer;
   cursor: hand;
 }
+
+#friendlist circle[r="0"] {
+  display: none;
+}
