@@ -18,6 +18,16 @@
     return width;
   };
 
+  function smoothScrolling(hash) {
+    var target = $(hash);
+    target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+    if (target.length) {
+      $('html,body').animate({
+        scrollTop: target.offset().top
+      }, 1000);
+    }
+  }
+
   function createCircle(k, max, width, height, padding) {
     var searchRadius = max * 2,
         maxRadius2 = max * max;
@@ -116,7 +126,7 @@
                     return color(f.value * 61);
                   })
                   .on("click", function() {
-                    window.location.hash = '#wordcloud-break';
+                    smoothScrolling('#wordcloud-break');
                     if (listener) {
                       listener(f.uid, f.name);
                     }

@@ -21,6 +21,16 @@ function keyword(searchText) {
   }
 }
 
+function smoothScrolling(hash) {
+  var target = $(hash);
+  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+  if (target.length) {
+    $('html,body').animate({
+      scrollTop: target.offset().top
+    }, 1000);
+  }
+}
+
 $(document).ready(function() {
 
   $.ajaxSetup({ cache: true });
@@ -284,7 +294,7 @@ function runWordFreq(text) {
           },
           click: function(item, dimension, evt) {
             keyword(item[0]);
-            window.location.hash = '#friendWrapper';
+            smoothScrolling('#friendWrapper');
           },
           shape: function(theta) {
             for (var i = 1; i < thumbsUp.length; i++) {
