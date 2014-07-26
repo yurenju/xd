@@ -151,3 +151,79 @@ p.fb_wording span {
   font-size: 36px;
   font-weight: normal;
 }
+a.btn_spread {
+  width: 100px;
+  height: 18px;
+  line-height: 18px;
+  display: block;
+  color: #fff;
+  font-size: 12px;
+  padding: 0 0 0 22px;
+  background: url("../images/icon_spread.png") left top no-repeat;
+}
+a.btn_spread:hover {
+  background-position: left bottom;
+}
+div.btn_scroll {
+  width: 36px;
+  height: 68px;
+}
+div.btn_scroll a {
+  width: 36px;
+  height: 34px;
+  display: block;
+  text-indent: -9999px;
+  background: url("../images/icon_scroll.png") left top no-repeat;
+}
+div.btn_scroll a.up {
+  background-position: left top;
+}
+div.btn_scroll a.up:hover {
+  background-position: right top;
+}
+div.btn_scroll a.down {
+  background-position: left bottom;
+}
+div.btn_scroll a.down:hover {
+  background-position: right bottom;
+}
+div.circle_score {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #9cf2e2;
+  position: relative;
+}
+div.circle_score div.fb_score {
+  font-size: 25px;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  width: 100%;
+  color: #fff;
+}
+div.circle_score div.fb_score span.dec {
+  font-size: 15px;
+}
+div.circle_score div.circle_score_pie {
+  width: 56px;
+  height: 56px;
+}
+div.circle_score div.circle_score_pie div.pie_b {
+  border-radius: 28px;
+  clip: rect(0em, 28px, 56px, 56px);
+  height: 45px;
+  position: absolute;
+  width: 45px;
+  background-color: red;
+}
+div.circle_score div.circle_score_pie div.pie_s {
+  transform: rotate(180deg) !important;
+  border-radius: 28px;
+  clip: rect(0em, 28px, 56px, 56px);
+  height: 45px;
+  position: absolute;
+  width: 45px;
+  background-color: #fff;
+}

@@ -140,5 +140,81 @@ p.fb_wording{
 	}
 }
 
+a.btn_spread{
+	width:100px;
+	height:18px;
+	line-height:18px;
+	display:block;
+	color:#fff;
+	font-size:12px;
+	padding:0 0 0 22px;
+	background:url("../images/icon_spread.png") left top no-repeat;
+	&:hover{
+		background-position:left bottom;
+	}
+}
+div.btn_scroll{
+	width:36px;
+	height:68px;
+	a{
+		width:36px;
+		height:34px;
+		display:block;
+		text-indent:-9999px;
+		background:url("../images/icon_scroll.png") left top no-repeat;
+	}
+	a.up{
+		background-position:left top;
+		&:hover{
+			background-position:right top;
+		}
+	}
+	a.down{
+		background-position:left bottom;
+		&:hover{
+			background-position:right bottom;
+		}
+	}
+}
 
-
+div.circle_score{
+	width:56px;
+	height:56px;
+	border-radius: 50%;
+	background-color:#9cf2e2;
+	position:relative;
+	div.fb_score{
+		font-size: 25px;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 20px;
+    width: 100%;
+    color:#fff;
+		span.int{}
+		span.dec{
+			font-size:15px;
+		}
+	}
+	div.circle_score_pie{
+		width:56px;
+		height:56px;
+		div.pie_b{
+			border-radius: 28px;
+			clip: rect(0em, 28px, 56px, 56px);
+			height: 45px;
+			position: absolute;
+			width: 45px;
+			background-color:red;
+		}
+		div.pie_s{
+			transform: rotate(180deg) !important;
+			border-radius: 28px;
+			clip: rect(0em, 28px, 56px, 56px);
+			height: 45px;
+			position: absolute;
+			width: 45px;
+			background-color:#fff;
+		}
+	}
+}
