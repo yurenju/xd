@@ -42,6 +42,23 @@ $(document).ready(function() {
 
     }
   });
+
+  var showPanelName = 'show-front';
+  var box = $('.cube-container > div')
+  box.addClass(showPanelName);
+  var emoticons = ['(>_<)', '(^_-)', '(´･ω･`)', '(ー_ー)!!', '( ･ิω･ิ)'];
+
+  $('#change-face').click(function() {
+    var changingSide = showPanelName === 'show-front' ? $('figure.back') : $('figure.front');
+    var em = emoticons[Math.floor(Math.random() * emoticons.length)];
+    changingSide.text(em);
+
+    var prev = showPanelName;
+    var next = prev === 'show-front' ? 'show-back' : 'show-front';
+    box.removeClass(prev);
+    showPanelName = next;
+    box.addClass(showPanelName);
+  });
 });
 
 function fb_init() {
