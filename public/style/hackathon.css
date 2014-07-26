@@ -298,10 +298,12 @@ ul#comment_wrap li div.comment_content div.comment_detail p span {
 ul#comment_wrap li div.comment_content div.comment_img {
   width: 645px;
   margin: 15px 0 10px 0;
-  height: 135px;
-  background: red;
+  height: 130px;
 }
 ul#comment_wrap li div.comment_content p.comment_info {
   color: #fff;
+  font-size: 12px;
+}
+.btn_fblogin p {
   font-size: 12px;
 }
