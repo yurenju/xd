@@ -102,6 +102,7 @@ $(document).ready(function() {
   });
 
   $('#back-to-banner').click(function() {
+    $('#cube').removeClass('spin');
     $('#cube-outer').removeClass('friend-list');
   });
 });
