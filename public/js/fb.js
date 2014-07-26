@@ -503,6 +503,7 @@ function showResult(entries, searchText) {
     index +=1;
   });
   setTimeout(animationCircleScore, 1000);
+  $('#back-to-friendWrapper').removeAttr('style');
 }
 
 function animationCircleScore() {
