@@ -2,11 +2,9 @@
 var uid = null;
 var accessToken = null;
 var xdinfo = null;
-var feedEntries = [];
 
 $(document).ready(function() {
-  // init XDInfo
-  xdinfo = new XDinfo(xdRegexes);
+
   $.ajaxSetup({ cache: true });
   $.getScript('//connect.facebook.net/en_UK/all.js', fb_init);
   $('#fblogin').click(function() {
@@ -33,8 +31,8 @@ $(document).ready(function() {
       console.log('HA:' + JSON.stringify(xds.items));
       for(var i in xds.items) {
         var index = parseInt(xds.items[i].id);
-        if (feedEntries[index]) {
-          showEntries.push(feedEntries[index]);
+        if (xdinfo.feedEntries[index]) {
+          showEntries.push(xdinfo.feedEntries[index]);
         }
       }
       console.log('HA:' + JSON.stringify(showEntries));
@@ -114,9 +112,15 @@ function render(entries) {
     if (entry.message) {
       ret += entry.message;
     }
-    if (entry.type === 'photo') {
-      ret += '<img src="https://graph.facebook.com/' +
-                                               entry.object_id + '/picture" />';
+    if (entry.type === 'photo' && entry.picture) {
+      //https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-xaf1/
+      var path =  entry.picture;
+      var last = path.substring(path.lastIndexOf("/") + 1, path.length);
+      ret += '<img src=
+      "https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-xaf1/' + last + '" />';
+
+      // ret += '<img src="https://graph.facebook.com/' +
+      //                                          entry.object_id + '/picture" />';
     }
     ret += '</li>';
     index += 1;
@@ -168,17 +172,19 @@ function getUserFeed(id) {
           /* handle the result */
           response.data.forEach(function (entry) {
               if (entry.from.id == id) {
-                feedEntries.push(entry);
+                xdinfo.feedEntries.push(entry);
               }
               if (entry.comments != undefined) {
                 entry.comments.data.forEach(function(comment) {
-                  feedEntries.push(comment);
+                  if (comment.from.id == id) {
+                    xdinfo.feedEntries.push(comment);
+                  }
                 });
               }
 
           });
-          calDegrees(feedEntries);
-          $('#feeds').html(render(feedEntries)).css('border', '1px solid #f00');
+          calDegrees(xdinfo.feedEntries);
+          $('#feeds').html(render(xdinfo.feedEntries)).css('border', '1px solid #f00');
           runWordFreq($('#feeds').text());
         }// end of if
       }
@@ -203,6 +209,11 @@ function getMyFriend() {
         ul.appendChild(docfrag);
         document.getElementById('friendlist').appendChild(ul);
         ul.addEventListener('click', function(e) {
+          if (xdinfo === null) {
+            xdinfo = new XDinfo(xdRegexes);
+          } else {
+            xdinfo.clear(xdRegexes);
+          }
           getUserFeed(e.target.dataset.id);
         });
       }
@@ -227,6 +238,7 @@ function runWordFreq(text) {
 
 function XDinfo(dict) {
   this.infoBox = [];
+  this.feedEntries = [];
   this.init(dict);
 }
 
@@ -273,7 +285,13 @@ XDinfo.prototype = {
     return xDegrees;
   },
 
+  clear: function xd_clear(dict) {
+    this.close();
+    this.init(dict);
+  },
+
   close: function xd_close() {
     this.infoBox = [];
+    this.feedEntries = [];
   }
 };
