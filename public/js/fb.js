@@ -479,7 +479,7 @@ function showResult(entries, searchText) {
     // }
 
     var result = '<li>' +
-      '<div class="circle_score" style="background:rgb('+ red +', 31, 170)">'+scroes+'</div>' +
+      '<div class="circle_score" data-style="rgb('+ red +', 31, 170)">'+scroes+'</div>' +
       '<div class="comment_content">' +
         '<div class="comment_date">' +
           '<p><time>' + date + '</time>' + whoSaid + '</p>';
@@ -502,5 +502,12 @@ function showResult(entries, searchText) {
     $('#comment_wrap').append(result);
     index +=1;
   });
+  setTimeout(animationCircleScore, 1000);
+}
 
+function animationCircleScore() {
+  $('div.circle_score').each(function(){
+    var background = $(this).attr('data-style');
+    $(this).css('background', background);
+  });
 }
