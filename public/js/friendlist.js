@@ -74,10 +74,6 @@
 
     var friendCount = friends.length;
     d3.timer(function() {
-      console.log('friendCount: ' + friendCount);
-      if (friendCount === 51) {
-        debugger;
-      }
       var f = friends[friends.length - friendCount];
 
       var circle = createCircle(1,
@@ -88,23 +84,27 @@
                     .attr('class', 'node')
                     .attr('transform',
                           'translate(' + (circle[0] + MAX_RADIUS) + ',' +
-                                         (circle[1] + MAX_RADIUS) + ')');
-      node.on("mouseover", function() {
-        d3.select(this).style("fill", "gold");
-      }).on("mouseout", function() {
-        d3.select(this).style("fill", function() {
-          return color(f.value * 112);
-        });
-      }).on("click", function() {
-        if (listener) {
-          listener(f.id, f.name);
-        }
-      });
+                                         (circle[1] + MAX_RADIUS) + ')')
+                    .on("mouseover", function() {
+                      d3.select(this).style("fill", "gold");
+                    })
+                    .on("mouseout", function() {
+                      d3.select(this).style("fill", function() {
+                        return color(f.value * 112);
+                      });
+                    })
+                    .style('fill', function(d) {
+                      return color(f.value * 61);
+                    })
+                    .on("click", function() {
+                      if (listener) {
+                        listener(f.id, f.name);
+                      }
+                    });
       node.append('circle')
+
           .attr('r', 0)
-          .style('fill', function(d) {
-            return color(f.value * 61);
-          })
+          
           .transition()
             .attr('r', circle[2]);
       node.append("text")
