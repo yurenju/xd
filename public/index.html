@@ -92,7 +92,7 @@
 					<footer>
 
 						<ul class="buttons vertical">
-							<li><a id="tell-me-more" href="#main" class="button fit scrolly">Tell Me More</a></li>
+							<li><a id="tell-me-more" href="#friendlist-container" class="button fit scrolly">Tell Me More</a></li>
 							<li>
 								<a class="btn_fblogin" id="fblogin" title="button hideItem Fackbook Login">
 									<div></div>
@@ -122,7 +122,7 @@
 
 						<div class="row half">
 							<div id="friendlist-container">
-								<a id="back-to-banner" class="scrolly btn_back btn_account" href="#banner" title="Back to account"></a>
+								<a id="back-to-banner" class="scrolly btn_back btn_uparrow" href="#banner" title="Back to account"></a>
 								<div id="friendlist">
 		    				</div>
 	    				</div>
@@ -130,17 +130,24 @@
 					</section>
 
 				<!-- World Cloud -->
-					<section class="wrapper style2 container special-alt">
+					<section id="wordcloud" class="wrapper style2 container special-alt">
 
-						<div class="row half">
+						<div id="wordcloud-container" class="row half">
 							<button type="button" id="getBT" class="button hideItem"> go wordscloud </button>
 							<div id="feeds" class="hideItem"></div>
     					<canvas height="700" width="1024" style="" id="wc-canvas-canvas" lang=""></canvas>
+    					<div id="wc-canvas-hover" hidden>
+    					  <span id="wc-canvas-hover-label"></span>
+    					</div>
 						</div>
 					</section>
 
 				<!-- Search Result -->
 					<section class="wrapper style2 container special-alt">
+            <div id="friendInfoBox" class="avatar hideItem" title="PYchen">
+              <div id="friendAvatar"></div>
+              <p id="friendName"></p>
+            </div>
 						<div class="row half">
 							<input id="xdSearch" type="text"/><br/>
 					    <button type="button" id="searchBT" class="button"> search </button>

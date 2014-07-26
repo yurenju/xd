@@ -3,6 +3,7 @@
   var MAX_RADIUS = 64;
   var quadtree;
   var color = d3.scale.category20c();
+  var defs;
 
   function textWidth(text, fontSize, fontFamily){
     jQuery('body').append('<span>' + text + '</span>');
@@ -65,6 +66,22 @@
     return fontSize + 'px';
   }
 
+  function createPattern(uid) {
+    return defs.append('pattern').attr('id', 'img-' + uid)
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', '1')
+        .attr('height', '1')
+        .attr('patternUnits', 'objectBoundingBox')
+        .append('image')
+          .attr('x', 0)
+          .attr('y', 0)
+          .attr('width', '200')
+          .attr('height', '200')
+          .attr('xlink:href',
+                'https://graph.facebook.com/' + uid + '/picture?type=large');
+  }
+
   function createFriendCircle(container, svg, f, width, height, maxValue,
                               listener) {
     var suggestdRadius = MAX_RADIUS * (f.value / maxValue);
@@ -72,50 +89,48 @@
                               suggestdRadius < 8 ? 8 : suggestdRadius,
                               width,
                               height, 5);
+    var pattern;
     var node = svg.append('g')
                   .attr('class', 'node')
                   .attr('transform',
                         'translate(' + circle[0] + ',' + circle[1] + ')')
                   .on("mouseover", function() {
-                    d3.select(this).select('circle')
+                    pattern = pattern || createPattern(f.uid);
+                    d3.select(this).select('circle.base')
+                        .attr('fill', 'url(#img-' + f.uid + ')')
                         .transition()
                           .attr('r', MAX_RADIUS * 1.5);
                     d3.select(this).select('text')
-                        .transition()
-                          .style("font-size", function() {
-                      return calcFontSize(container, 48, f.name,
-                                          MAX_RADIUS * 3);
-                    }).text(function() {
-                      return f.name;
-                    });
+                        .attr('class', 'text hidden');
                   })
                   .on("mouseout", function() {
-                    d3.select(this).select('circle')
+                    d3.select(this).select('circle.base')
                         .transition()
-                          .attr('r', circle[2]);
-                    d3.select(this).select('text')
-                        .transition()
-                          .style("font-size", function() {
-                      return calcFontSize(container, 24, f.name,
-                                          circle[2] * 2);
-                    }).text(function() {
-                      return (circle[2] < 12) ? '...' : f.name;
-                    });
+                          .attr('r', circle[2])
+                          .each('end', function() {
+                            d3.select(this).attr('fill', null);
+                            node.select('text').attr('class', 'text');
+                          });
                   })
                   .style('fill', function(d) {
                     return color(f.value * 61);
                   })
                   .on("click", function() {
+                    window.location.hash = '#wordcloud';
                     if (listener) {
                       listener(f.uid, f.name);
                     }
                   });
+    
+    
     node.append('circle')
+        .attr('class', 'base')
         .attr('r', 0)
         .transition()
           .attr('r', circle[2]);
     node.append("text")
         .attr('dy', ".3em")
+        .attr('class', 'text')
         .style("text-anchor", "middle")
         .style("fill","black")
         .style("font-size","2px")
@@ -159,19 +174,20 @@
     var svg = d3.select('#friendlist').append('svg')
                 .attr('width', width)
                 .attr('height', height)
-                .attr('class', 'bubble')
-                .append('g')
-                  .attr('transform',
-                        'translate(' + MAX_RADIUS + ',' + MAX_RADIUS + ')');
+                .attr('class', 'bubble');
+    defs = svg.append('defs');
+    var rootG = svg.append('g')
+                   .attr('transform',
+                         'translate(' + MAX_RADIUS + ',' + MAX_RADIUS + ')');
 
     quadtree = d3.geom.quadtree().extent([[0, 0], [width, height]])([]);
     width -= 2 * MAX_RADIUS;
     height -= 2 * MAX_RADIUS;
     var friendCount = friends.length;
-    var selfNode = createMySelf(svg, width, height);
+    var selfNode = createMySelf(rootG, width, height);
     d3.timer(function() {
       var f = friends[friends.length - friendCount];
-      createFriendCircle(container, svg, f, width, height, maxValue, listener);
+      createFriendCircle(container, rootG, f, width, height, maxValue, listener);
       return !(--friendCount);
     });
   };
