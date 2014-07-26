@@ -294,3 +294,9 @@ section#friendWrapper{
 .friendInfoBoxHeader {
   text-align: left;
 }
+
+div.circle_score {
+  line-height: 56px;
+  text-align: center;
+  font-size: 25px;
+}

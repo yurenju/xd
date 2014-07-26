@@ -253,10 +253,10 @@ ul#comment_wrap li div.circle_score {
   vertical-align: top;
 }
 ul#comment_wrap li div.comment_content {
-  width: 655px;
+  width: 620px;
   display: inline-block;
   background: url("../images/comment_arrow.png") left 15px no-repeat;
-  margin: 12px 0 0 4px;
+  margin: 12px 0 45px 9px;
   padding-left: 35px;
 }
 ul#comment_wrap li div.comment_content div.comment_date {
@@ -298,10 +298,12 @@ ul#comment_wrap li div.comment_content div.comment_detail p span {
 ul#comment_wrap li div.comment_content div.comment_img {
   width: 645px;
   margin: 15px 0 10px 0;
-  height: 135px;
-  background: red;
+  height: 130px;
 }
 ul#comment_wrap li div.comment_content p.comment_info {
   color: #fff;
+  font-size: 12px;
+}
+.btn_fblogin p {
   font-size: 12px;
 }

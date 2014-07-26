@@ -431,6 +431,8 @@ XDinfo.prototype = {
 };
 
 function showResult(entries, searchText) {
+  var index = 0;
+  var maxScroes = 0;
   entries.forEach(function(entry) {
     var message = null,
         image = null,
@@ -438,7 +440,15 @@ function showResult(entries, searchText) {
     var date = entry.created_time.substring(0, entry.created_time.lastIndexOf('T'));
     var whoSaid = entry.from.name;
     var scroes = entry.scroes;
-
+    var ratio = 1;
+    if (index === 0) {
+      maxScroes = scroes;
+      ratio = 1;
+    } else {
+      ratio = (scroes/maxScroes);
+    }
+    console.log('ratio:' + ratio);
+    var red = Math.floor(255 * ratio);
     if (entry.message) {
       message = entry.message;
       // message = document.createElement('p');
@@ -469,7 +479,7 @@ function showResult(entries, searchText) {
     // }
 
     var result = '<li>' +
-      '<div class="circle_score">' + scroes + '</div>' +
+      '<div class="circle_score" style="background:rgb('+ red +', 31, 170)">'+scroes+'</div>' +
       '<div class="comment_content">' +
         '<div class="comment_date">' +
           '<p><time>' + date + '</time>' + whoSaid + '</p>';
@@ -490,6 +500,7 @@ function showResult(entries, searchText) {
 
     result = result + '</div>' + '</li>';
     $('#comment_wrap').append(result);
+    index +=1;
   });
 
 }
