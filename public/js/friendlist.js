@@ -55,6 +55,16 @@
     return best;
   }
 
+  function calcFontSize(container, maxSize, text, target) {
+    var fontSize = maxSize;
+    var fontFamily = container.css('font-family');
+    while (textWidth(text, fontSize + 'px', fontFamily) > target &&
+           fontSize > 3) {
+      fontSize--;
+    }
+    return fontSize + 'px';
+  }
+
   function createFriendCircle(container, svg, f, width, height, maxValue,
                               listener) {
     var suggestdRadius = MAX_RADIUS * (f.value / maxValue);
@@ -67,11 +77,29 @@
                   .attr('transform',
                         'translate(' + circle[0] + ',' + circle[1] + ')')
                   .on("mouseover", function() {
-                    d3.select(this).style("fill", "gold");
+                    d3.select(this).select('circle')
+                        .transition()
+                          .attr('r', MAX_RADIUS * 1.5);
+                    d3.select(this).select('text')
+                        .transition()
+                          .style("font-size", function() {
+                      return calcFontSize(container, 48, f.name,
+                                          MAX_RADIUS * 3);
+                    }).text(function() {
+                      return f.name;
+                    });
                   })
                   .on("mouseout", function() {
-                    d3.select(this).style("fill", function() {
-                      return color(f.value * 112);
+                    d3.select(this).select('circle')
+                        .transition()
+                          .attr('r', circle[2]);
+                    d3.select(this).select('text')
+                        .transition()
+                          .style("font-size", function() {
+                      return calcFontSize(container, 24, f.name,
+                                          circle[2] * 2);
+                    }).text(function() {
+                      return (circle[2] < 12) ? '...' : f.name;
                     });
                   })
                   .style('fill', function(d) {
@@ -79,7 +107,7 @@
                   })
                   .on("click", function() {
                     if (listener) {
-                      listener(f.id, f.name);
+                      listener(f.uid, f.name);
                     }
                   });
     node.append('circle')
@@ -90,15 +118,10 @@
         .attr('dy', ".3em")
         .style("text-anchor", "middle")
         .style("fill","black")
+        .style("font-size","2px")
+        .transition()
         .style("font-size", function(d) {
-          var fontSize = 24;
-          var fontFamily = container.css('font-family');
-          var target = (circle[2] + 20);
-          while (textWidth(f.name, fontSize + 'px', fontFamily) > target &&
-                 fontSize > 3) {
-            fontSize--;
-          }
-          return fontSize + 'px';
+          return calcFontSize(container, 24, f.name, circle[2] * 2);
         })
         .text(function() {
           return (circle[2] < 12) ? '...' : f.name;
@@ -140,7 +163,7 @@
                 .append('g')
                   .attr('transform',
                         'translate(' + MAX_RADIUS + ',' + MAX_RADIUS + ')');
-    console.log(width, height);
+
     quadtree = d3.geom.quadtree().extent([[0, 0], [width, height]])([]);
     width -= 2 * MAX_RADIUS;
     height -= 2 * MAX_RADIUS;
