@@ -48,7 +48,7 @@ $(document).ready(function() {
   });
 
   var prev = 'right';
-  var box = $('.cube-container > div')
+  var box = $('.cube-container > div > div');
   box.addClass('show-' + prev);
   var emoticons = ['(>_<)', '(^_-)', '(´･ω･`)', '(ー_ー)!!', '( ･ิω･ิ)',
     'ఠ_ఠ', '(ಥ_ಥ)', '(❀╹◡╹)'];
