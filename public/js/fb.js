@@ -201,7 +201,9 @@ function getUserFeed(id) {
               }
               if (entry.comments != undefined) {
                 entry.comments.data.forEach(function(comment) {
-                  xdinfo.feedEntries.push(comment);
+                  if (comment.from.id == id) {
+                    xdinfo.feedEntries.push(comment);
+                  }
                 });
               }
 
@@ -236,11 +238,11 @@ function getMyFriend() {
 }
 
 function runWordFreq(text) {
-  // var xDegrees = calculateXD(text);
+  var normalText = calculateXD(text);
   var xDegrees = xdinfo.getScores();
 
   var wordfreqOption = { workerUrl: 'vendor/wordfreq/src/wordfreq.worker.js' };
-  WordFreq(wordfreqOption).process(text, function(list) {
+  WordFreq(wordfreqOption).process(normalText.processed, function(list) {
     var pizaList = list.concat(xDegrees);
     pizaList.sort(function(a, b) {
       return b[1]- a[1];
