@@ -276,7 +276,7 @@ function runWordFreq(text) {
             }
 
             el.removeAttr('hidden');
-            el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 5) + 'px');
+            el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 40) + 'px');
             el.css('width', dimension.w + 'px');
             el.css('height', dimension.h + 'px');
 
