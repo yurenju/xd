@@ -243,6 +243,7 @@ function runWordFreq(text) {
       WordCloud(document.getElementById('wc-canvas-canvas'),
         {
           list: pizaList,
+          backgroundColor: '#83D3C9',
           shape: function(theta) {
             for (var i = 1; i < thumbsUp.length; i++) {
               if (thumbsUp[i-1].theta < theta && theta <= thumbsUp[i].theta ) {
