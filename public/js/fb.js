@@ -43,21 +43,28 @@ $(document).ready(function() {
     }
   });
 
-  var showPanelName = 'show-front';
+  var prev = 'right';
   var box = $('.cube-container > div')
-  box.addClass(showPanelName);
-  var emoticons = ['(>_<)', '(^_-)', '(´･ω･`)', '(ー_ー)!!', '( ･ิω･ิ)'];
+  box.addClass('show-' + prev);
+  var emoticons = ['(>_<)', '(^_-)', '(´･ω･`)', '(ー_ー)!!', '( ･ิω･ิ)',
+    'ఠ_ఠ', '(ಥ_ಥ)', '(❀╹◡╹)'];
+  var sides = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+
+  $('#cube > figure').each(function(i, el) {
+    $(el).text(emoticons[Math.floor(Math.random() * emoticons.length)]);
+  })
 
   $('#change-face').click(function() {
-    var changingSide = showPanelName === 'show-front' ? $('figure.back') : $('figure.front');
-    var em = emoticons[Math.floor(Math.random() * emoticons.length)];
-    changingSide.text(em);
+    var next;
+    do {
+      next = sides[Math.floor(Math.random() * sides.length)];
+    } while (next === prev);
 
-    var prev = showPanelName;
-    var next = prev === 'show-front' ? 'show-back' : 'show-front';
-    box.removeClass(prev);
-    showPanelName = next;
-    box.addClass(showPanelName);
+    var changingSide = $('figure.' + next);
+    changingSide.text(emoticons[Math.floor(Math.random() * emoticons.length)]);
+    box.removeClass('show-' + prev);
+    prev = next;
+    box.addClass('show-' + next);
   });
 });
 
