@@ -3,6 +3,35 @@ var uid = null;
 var accessToken = null;
 var xdinfo = null;
 
+function keyword(searchText) {
+  var xds = xdinfo.getItems(searchText);
+  var showEntries = [];
+  if (xds.items.length !== 0) {
+    showEntries = [];
+    xds.items.sort(function(a, b) {
+      return b.scroes- a.scroes;
+    });
+    for(var i in xds.items) {
+      var index = parseInt(xds.items[i].id);
+      if (xdinfo.feedEntries[index]) {
+        showEntries.push(xdinfo.feedEntries[index]);
+      }
+    }
+    showResult(showEntries);
+    //$('#result').html(render(showEntries)).css('border', '1px solid #f00');
+  }
+}
+
+function smoothScrolling(hash) {
+  var target = $(hash);
+  target = target.length ? target : $('[name=' + hash.slice(1) +']');
+  if (target.length) {
+    $('html,body').animate({
+      scrollTop: target.offset().top
+    }, 1000);
+  }
+}
+
 $(document).ready(function() {
 
   $.ajaxSetup({ cache: true });
