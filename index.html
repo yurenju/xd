@@ -1,8 +1,196 @@
+<!DOCTYPE HTML>
+<!--
+	Twenty 1.0 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-  <head>
-  <meta http-equiv="Refresh" content="1; url=public/index.html">
+	<head>
+		<title>^____^</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="style/ie/html5shiv.js"></script><![endif]-->
+		<script src="vendor/d3/d3.min.js"></script>
+		<script src="vendor/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/wordfreq/src/wordfreq.js"></script>
+    <script src="vendor/wordcloud2/src/wordcloud2.js"></script>
+    <script src="vendor/color-thief/dist/color-thief.min.js"></script>
+    <script src="js/jquery.dropotron.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/xd_calc.js"></script>
+		<script src="js/friendlist.js"></script>
+    <script src="js/vars.js"></script>
+    <script src="js/iii.js"></script>
+    <script src="js/fb.js"></script>
+    <noscript>
+			<link rel="stylesheet" href="style/skel.css" />
+			<link rel="stylesheet" href="style/style.css" />
+			<link rel="stylesheet" href="style/style-wide.css" />
+			<link rel="stylesheet" href="style/style-noscript.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="style/ie/v8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="style/ie/v9.css" /><![endif]-->
+    <link href="style/hackathon.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="style/xd.css" /> 
   </head>
-  <body>
-    Redirect to public/index.html
-  </body>
+	<body class="index loading">
+
+		<!-- Header -->
+			<header id="header" class="alt">
+				<h1 id="logo"><a href="index.html">^_____^</span></a></h1>
+				<nav id="nav">
+					<ul>
+						<li class="submenu">
+							<a href="">Pages</a>
+							<ul>
+								<li><a href="#friendlist-container">Friend List</a></li>
+								<li><a href="#wordcloud-container">Word Cloud</a></li>
+								<li><a href="#friendWrapper">Result</a></li>
+								<li><a href="#footer">more info</a></li>
+							</ul>
+						</li>
+            <li class="current"><a href="index.html">Welcome</a></li>
+            
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Banner -->
+			<section id="banner">
+
+				<!--
+					".inner" is set up as an inline-block so it automatically expands
+					in both directions to fit whatever's inside it. This means it won't
+					automatically wrap lines, so be sure to use line breaks where
+					appropriate (<br />).
+				-->
+				<div class="inner">
+					<section class="cube-container">
+						<div id="cube-outer">
+							<div id="cube">
+							  <figure class="front"></figure>
+							  <figure class="back"></figure>
+							  <figure class="right"></figure>
+							  <figure class="left"></figure>
+							  <figure class="top"></figure>
+							  <figure class="bottom"></figure>
+							</div>
+						</div>
+					</section>
+					<footer>
+
+						<ul class="buttons vertical">
+							<li><a id="tell-me-more" href="#friendlist-container" class="button fit scrolly">Tell Me More</a></li>
+							<li>
+								<a class="btn_fblogin" id="fblogin" title="button hideItem Fackbook Login">
+									<div></div>
+									<p>Login with Facebook</p>
+								</a>
+							</li>
+						</ul>
+						<a id="change-face" class="btn_faceChange" title="Change Face">
+							<div></div>
+							<p>Change Face</p>
+						</a>
+					</footer>
+
+				</div>
+
+			</section>
+
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					<!-- <span class="icon fa-bar-chart-o"></span> -->
+					<h2>Friend List</h2>
+				</header>
+				<!-- Friend List -->
+					<section class="wrapper style2 container special-alt">
+
+						<div class="row half">
+							<div id="friendlist-container">
+								<a id="back-to-banner" class="scrolly btn_back btn_uparrow" href="#banner" title="Back to account"></a>
+								<div id="friendlist">
+		    				</div>
+	    				</div>
+						</div>
+					</section>
+
+					<section id="wordcloud-break">
+					</section>
+
+				<!-- World Cloud -->
+					<section id="wordcloud" class="wrapper style2 container special-alt">
+
+						<div id="wordcloud-container" class="row half">
+							<a id="back-to-friend-list" class="scrolly btn_back btn_uparrow" href="#friendlist-container" title="Back to friend list"></a>
+							<button type="button" id="getBT" class="button hideItem"> go wordscloud </button>
+							<div id="feeds" class="hideItem"></div>
+    					<canvas height="700" width="1024" style="" id="wc-canvas-canvas" lang=""></canvas>
+    					<div id="wc-canvas-hover" hidden>
+    					  <span id="wc-canvas-hover-label"></span>
+    					</div>
+						</div>
+					</section>
+
+				<!-- Search Result -->
+        <section id="friendWrapper" class="wrapper style3 container special">
+
+          <header class="friendInfoBoxHeader">
+            <div id="friendInfoBox" class="avatar">
+              <div id="friendAvatar"></div>
+              <p id="friendName"></p>
+            </div>
+            <p class="fb_wording">
+            	<span id="fb_keyword"></span>
+            	<span>X <span id="fb_count"></span> msg</span>
+            </p>
+            <div id="related-ptt" class="related-ptt"></div>
+            <h2></h2>
+            <p></p>
+          </header>
+        </section>
+				<section class="wrapper style2 container special-alt">
+					<div class="row half">
+            <a id="back-to-wordcloud" class="scrolly btn_back btn_uparrow" href="#wordcloud" title="Back to wordcloud"></a>
+						<input id="xdSearch" type="text" style="display:none"/><br/>
+				    <button type="button" id="searchBT" class="button" style="display:none"> search </button>
+				    <div id="result">
+              <ul id="comment_wrap">
+              </ul>
+            </div>
+					</div>
+          <a id="back-to-friendWrapper" style="display:none;" class="scrolly btn_back btn_uparrow" href="#friendWrapper" title="Back to friend Wrapper"></a>
+        </section>
+
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+
+				<ul class="icons">
+					<!-- <li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
+					-->
+          <li>
+            <a href="http://youtu.be/x9XohKDmtAA" class="icon circle fa-youtube" target="_blank">
+            <span class="label">Youtube</span></a>
+          </li>
+					<li>
+            <a href="https://github.com/XDDDDD/xd" class="icon circle fa-github" target="_blank">
+            <span class="label">Github</span></a>
+          </li>
+					<!-- <li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li> -->
+				</ul>
+
+				<span class="copyright">&copy; Untitled. All rights reserved. Design: <a href="http://html5up.net">HTML5 UP</a>.</span>
+
+			</footer>
+
+	</body>
 </html>
