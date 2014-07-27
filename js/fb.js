@@ -308,7 +308,7 @@ function runWordFreq(text) {
           hover: function(item, dimension, evt) {
             console.log("item: " + JSON.stringify(item));
             var el = hoverElement;
-            if (!item) {
+            if (!item || !xdinfo.getItems(item[0]) || item[1] <= 10 ) {
               el.attr('hidden', true);
               return;
             }
