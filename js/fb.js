@@ -172,6 +172,9 @@ function userInfo () {
 function switchElement(ele, operate) {
   if (operate === 'off') {
     ele.addClass('hideItem');
+    if (ele.attr('id') === 'fblogin') {
+      getMyFriend();
+    }
   } else {
     ele.removeClass('hideItem');
   }
