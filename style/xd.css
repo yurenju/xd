@@ -1,4 +1,14 @@
+strong {
+  font-weight: bold;
+}
 
+#nav {
+  line-height: 20px;
+}
+
+#nav img {
+  vertical-align: text-bottom;
+}
 
 #friendlist-container {
   width: 100%;
