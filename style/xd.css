@@ -292,8 +292,12 @@ section#friendWrapper{
   display: inline-block;
 }
 
-#friendInfoBox.hideItem, #fblogin.hideItem{
+#friendInfoBox.hideItem{
   display: none;
+}
+
+#fblogin.hideItem {
+  visibility: hidden;
 }
 
 .fb_wording {
