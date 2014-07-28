@@ -1,5 +1,5 @@
 'use strict';
-var uid = null;
+var UserID = null;
 var accessToken = null;
 var xdinfo = null;
 
@@ -130,7 +130,7 @@ function fb_init() {
       // the user's ID, a valid access token, a signed
       // request, and the time the access token
       // and signed request each expire
-      var uid = response.authResponse.userID;
+      UserID = response.authResponse.userID;
       var accessToken = response.authResponse.accessToken;
       console.log('login!!!' + response.authResponse.userID);
       userInfo();
@@ -160,13 +160,35 @@ function userInfo () {
                                                         "/picture";
         $('#usericon').attr('src', icon).attr('traget', '_blank');
         $('#username').attr('href', response.link).html(response.name);
-        $('#usericon').click(function() {
-          getUserFeed(response.id);
+        $('#cube-outer').click(function(){
+          if ($('#cube-outer').hasClass('friend-list')) {
+            displayFeedSection(response.id, response.name);
+          }
         });
+        // $('#usericon').click(function() {
+        //   getUserFeed(response.id);
+        // });
         switchElement($('#userinfo'), 'on');
       }
     }
   );
+}
+
+function displayFeedSection(id, name) {
+  var canvas = $('#wc-canvas-canvas');
+  var ctx = canvas[0].getContext('2d');
+  ctx.clearRect(0, 0, canvas.width(), canvas.height());
+  $('#cube-outer').removeClass('friend-list');
+  $('#cube-outer').addClass('word-cloud');
+  $('#cube').addClass('loading');
+  smoothScrolling('#wordcloud-break');
+  getUserFeed(id);
+  showFriendIcon(id, name);
+  if (xdinfo === null) {
+    xdinfo = new XDinfo(xdRegexes);
+  } else  {
+    xdinfo.restart(xdRegexes);
+  }
 }
 
 function switchElement(ele, operate) {
@@ -234,7 +256,7 @@ function calDegrees(entries) {
 function getUserFeed(id) {
   console.log('user id' +  id);
   if (id == null) {
-    id = 'me';
+    id = UserID;
   }
   FB.api(
       "/" + id + "/feed/", {limit: 500},
@@ -271,15 +293,7 @@ function getMyFriend() {
     function (response) {
       if (response && !response.error) {
         showFriendList(response.data, function(id, name) {
-          $('#cube-outer').removeClass('friend-list');
-          $('#cube-outer').addClass('word-cloud');
-          getUserFeed(id);
-          showFriendIcon(id, name);
-          if (xdinfo === null) {
-            xdinfo = new XDinfo(xdRegexes);
-          } else  {
-            xdinfo.restart(xdRegexes);
-          }
+          displayFeedSection(id, name);
         });
       }
     }

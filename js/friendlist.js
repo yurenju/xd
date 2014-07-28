@@ -126,11 +126,6 @@
                     return color(f.value * 61);
                   })
                   .on("click", function() {
-                    var canvas = $('#wc-canvas-canvas');
-                    var ctx = canvas[0].getContext('2d');
-                    ctx.clearRect(0, 0, canvas.width(), canvas.height());
-                    $('#cube').addClass('loading');
-                    smoothScrolling('#wordcloud-break');
                     if (listener) {
                       listener(f.uid, f.name);
                     }
