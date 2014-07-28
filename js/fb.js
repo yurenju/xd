@@ -229,7 +229,7 @@ function render(entries) {
 function calDegrees(entries) {
   var index = 0;
   entries.forEach(function(entry) {
-    if (entry.message) {
+   if (entry.message != undefined ) {
       var xDegrees = null;
       xDegrees = calculateXD(entry.message);
       // console.log('xDegrees.scores:' + JSON.stringify(xDegrees.scores));
@@ -334,8 +334,7 @@ function runWordFreq(text) {
             el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 40) + 'px');
             el.css('width', dimension.w + 'px');
             el.css('height', dimension.h + 'px');
-
-            hoverLabelElement.text(JSON.stringify(item));
+            hoverLabelElement.text(item[0] + ':' + (item[1] - 10));
           },
           click: function(item, dimension, evt) {
             searchIIIAPI(item[0]);
@@ -429,6 +428,7 @@ XDinfo.prototype = {
       if (xd.scores === 0) {
         xDegrees[xDegrees.length] = [xd.name, 10];
       } else {
+        xd.scores = xd.scores + 10;
         xDegrees[xDegrees.length] = [xd.name, xd.scores];
       }
     }
