@@ -5,7 +5,17 @@
   border-radius: 50%;
   background-color: #44eace;
   position: relative;
+  -webkit-transition: 1s ease-in-out;
+  -moz-transition: 1s ease-in-out;
+  -o-transition: 1s ease-in-out;
+  transition: 1s ease-in-out;
 }
+
+.avatar.friend {
+  position: absolute;
+  transform-origin: 0 0;
+}
+
 .avatar .avatar-image {
   width: 128px;
   height: 128px;
@@ -13,10 +23,11 @@
   position: absolute;
   left: 4px;
   top: 4px;
-  background-size: 128px 128px;
+  background-size: 128px auto;
   background-position: 0 0;
   background-repeat: no-repeat;
 }
+
 .avatar .avatar-name {
   width: 130px;
   height: 64px;
@@ -30,4 +41,16 @@
   font-weight: normal;
   font-size: 18px;
   background-color: rgba(68, 250, 207, 0.7);
+}
+
+.avatar.userSelf {
+  display: none;
+}
+
+#friendlist {
+  height: 800px;
+}
+
+.friends-container {
+  margin: 68px;
 }

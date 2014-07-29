@@ -159,7 +159,7 @@ function userInfo () {
         var icon = "https://graph.facebook.com/" + response.id +
                                                         "/picture";
         $('#usericon').attr('src', icon).attr('traget', '_blank');
-        $('#username').attr('href', response.link).html(response.name);
+        $('#username').attr('href', response.link).text(response.name);
         $('#cube-outer').click(function(){
           if ($('#cube-outer').hasClass('friend-list')) {
             displayFeedSection(response.id, response.name);
