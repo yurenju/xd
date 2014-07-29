@@ -97,7 +97,11 @@
 
     createdCircles[createdCircles.length] = circle;
 
-    friend.click(listener);
+    friend.click(function() {
+      if (listener) {
+        listener(f.uid, f.name);
+      }
+    });
   }
 
   function createItem(container, image, name, x, y, scale) {
