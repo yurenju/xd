@@ -1,0 +1,33 @@
+.avatar {
+  width: 136px;
+  height: 136px;
+  display: block;
+  border-radius: 50%;
+  background-color: #44eace;
+  position: relative;
+}
+.avatar .avatar-image {
+  width: 128px;
+  height: 128px;
+  border-radius: 128px 128px 128px 128px;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  background-size: 128px 128px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+.avatar .avatar-name {
+  width: 130px;
+  height: 64px;
+  position: absolute;
+  top: 68px;
+  left: 4px;
+  line-height: 64px;
+  border-radius: 0 0 130px 130px;
+  color: #fff;
+  text-align: center;
+  font-weight: normal;
+  font-size: 18px;
+  background-color: rgba(68, 250, 207, 0.7);
+}
