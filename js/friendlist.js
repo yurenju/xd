@@ -1,9 +1,8 @@
 (function() {
 
-  var MAX_RADIUS = 64;
-  var quadtree;
+  var STANDARD_SIZE = 136;
+  var createdCircles;  
   var color = d3.scale.category20c();
-  var defs;
 
   function textWidth(text, fontSize, fontFamily){
     jQuery('body').append('<span>' + text + '</span>');
@@ -29,41 +28,46 @@
   }
 
   function createCircle(k, max, width, height, padding) {
-    var searchRadius = max * 2,
-        maxRadius2 = max * max;
-    var bestX, bestY, bestDistance = 0;
+    var radius = max;
+    var bestX, bestY;
+    var collision = false;
+    for (var i = 0; i < k && radius > 0; ++i) {
+      var x = Math.random() * width;
+      var y = Math.random() * height;
+      collision = false;
 
-    for (var i = 0; i < k || bestDistance < padding; ++i) {
-      var x = Math.random() * width,
-          y = Math.random() * height,
-          rx1 = x - searchRadius,
-          rx2 = x + searchRadius,
-          ry1 = y - searchRadius,
-          ry2 = y + searchRadius,
-          minDistance = max; // minimum distance for this candidate
-
-      quadtree.visit(function(quad, x1, y1, x2, y2) {
-        if (p = quad.point) {
-          var p,
-              dx = x - p[0],
-              dy = y - p[1],
-              d2 = dx * dx + dy * dy,
-              r2 = p[2] * p[2];
-          if (d2 < r2) return minDistance = 0, true; // within a circle
-          var d = Math.sqrt(d2) - p[2];
-          if (d < minDistance) minDistance = d;
-          if (minDistance < 1.5)
-            return true;
+      createdCircles.some(function(circle) {
+        var dx = circle.x - x;
+        var dy = circle.y - y;
+        var distanceSquare = dx * dx + dy * dy;
+        var twoRadius = radius + circle.radius + padding;
+        if (distanceSquare < (twoRadius * twoRadius)) {
+          collision = true;
         }
-        return !minDistance || x1 > rx2 || x2 < rx1 || y1 > ry2 || y2 < ry1; // or outside search radius
+        return collision;
       });
-
-      if (minDistance > bestDistance) bestX = x, bestY = y, bestDistance = minDistance;
+      if (collision) {
+        radius -= 2;
+      } else {
+        bestX = x;
+        bestY = y;
+        break;
+      }
     }
-
-    var best = [bestX, bestY, bestDistance - padding];
-    quadtree.add(best);
-    return best;
+    if (collision) {
+      console.log('still collision');
+      return  {
+        'x': -100,
+        'y': -100,
+        'radius': radius
+      };
+    } else {
+      return  {
+        'x': bestX,
+        'y': bestY,
+        'radius': radius
+      };
+    }
   }
 
   function calcFontSize(container, maxSize, text, target) {
@@ -73,98 +77,65 @@
            fontSize > 3) {
       fontSize--;
     }
-    return fontSize + 'px';
+    return fontSize;
   }
 
-  function createPattern(uid) {
-    return defs.append('pattern').attr('id', 'img-' + uid)
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('width', '1')
-        .attr('height', '1')
-        .attr('patternUnits', 'objectBoundingBox')
-        .append('image')
-          .attr('x', 0)
-          .attr('y', 0)
-          .attr('width', '200')
-          .attr('height', '200')
-          .attr('xlink:href',
-                'https://graph.facebook.com/' + uid + '/picture?type=large');
+  function createFriendCircle(container, f, width, height, maxValue, listener) {
+    var defRadius = STANDARD_SIZE / 2;
+    var circle = createCircle(50, defRadius, width, height, 1);
+
+    if (circle.x === -100 || circle.y === -100) {
+      // No space for this person.
+      return;
+    }
+
+    var imgSrc = 'https://graph.facebook.com/' + f.uid + '/picture?type=normal';
+    var friend = createItem(container, imgSrc, f.name,
+                            circle.x - circle.radius, // x
+                            circle.y - circle.radius, // y
+                            circle.radius / defRadius);// scale
+
+    createdCircles[createdCircles.length] = circle;
+
+    friend.click(listener);
   }
 
-  function createFriendCircle(container, svg, f, width, height, maxValue,
-                              listener) {
-    var suggestdRadius = MAX_RADIUS * (f.value / maxValue);
-    var circle = createCircle(1,
-                              suggestdRadius < 8 ? 8 : suggestdRadius,
-                              width,
-                              height, 5);
-    var pattern;
-    var node = svg.append('g')
-                  .attr('class', 'node')
-                  .attr('transform',
-                        'translate(' + circle[0] + ',' + circle[1] + ')')
-                  .on("mouseover", function() {
-                    pattern = pattern || createPattern(f.uid);
-                    d3.select(this).select('circle.base')
-                        .attr('fill', 'url(#img-' + f.uid + ')')
-                        .transition()
-                          .attr('r', MAX_RADIUS * 1.5);
-                    d3.select(this).select('text')
-                        .attr('class', 'text hidden');
-                  })
-                  .on("mouseout", function() {
-                    d3.select(this).select('circle.base')
-                        .transition()
-                          .attr('r', circle[2])
-                          .each('end', function() {
-                            d3.select(this).attr('fill', null);
-                            node.select('text').attr('class', 'text');
-                          });
-                  })
-                  .style('fill', function(d) {
-                    return color(f.value * 61);
-                  })
-                  .on("click", function() {
-                    if (listener) {
-                      listener(f.uid, f.name);
-                    }
-                  });
+  function createItem(container, image, name, x, y, scale) {
+    var item = document.createElement('div');
+    item.classList.add('avatar');
+    item.classList.add('friend');
+    // image
+    var img = document.createElement('div');
+    img.classList.add('avatar-image');
+    img.style.backgroundImage = 'url(\'' + image + '\')'; 
+    // user name
+    var userName = document.createElement('p');
+    userName.classList.add('avatar-name');
+    userName.textContent = name;
+    // We use scale to resize it so, we can use 128px as its normal size.
+    userName.style.fontSize = calcFontSize(container, 24, name, 128) + 'px';
 
-
-    node.append('circle')
-        .attr('class', 'base')
-        .attr('r', 0)
-        .transition()
-          .attr('r', circle[2]);
-    node.append("text")
-        .attr('dy', ".3em")
-        .attr('class', 'text')
-        .style("text-anchor", "middle")
-        .style("fill","black")
-        .style("font-size","2px")
-        .transition()
-        .style("font-size", function(d) {
-          return calcFontSize(container, 24, f.name, circle[2] * 2);
-        })
-        .text(function() {
-          return (circle[2] < 12) ? '...' : f.name;
-        });
+    item.appendChild(img);
+    item.appendChild(userName);
+    item.style.transform = 'translate(' + Math.round(x) + 'px, ' +
+                                          Math.round(y) + 'px) ' +
+                           'scale(' + scale + ')';
+    container.append($(item));
+    item.dataset.name = name;
+    return $(item);
   }
 
-  function createMySelf(svg, width, height) {
-    var node = svg.append('g')
-              .attr('class', 'self')
-              .attr('transform',
-                    'translate(' + width / 2 + ',' +
-                                   height / 2 + ')');
-    node.append('circle')
-        .attr('r', 0)
-        .transition()
-          .attr('r', MAX_RADIUS)
-        .style('fill', 'transparent');
-    quadtree.add([width / 2, height / 2, MAX_RADIUS]);
-    return node;
+  function createMySelf(container, width, height) {
+    var item = createItem(container, $('#usericon').attr('src'),
+                          $('#username').text(), width / 2 - STANDARD_SIZE / 2,
+                          height / 2 - STANDARD_SIZE / 2, 1);
+    item.addClass('userSelf');
+
+    createdCircles[createdCircles.length] = {
+      'x': width / 2,
+      'y': height / 2,
+      'radius': STANDARD_SIZE / 2
+    };
   }
 
   window.showFriendList = function(friends, listener) {
@@ -178,25 +149,24 @@
     });
     var container = $('#friendlist');
     container.html('');
-    var width = container.width();
-    var height = 680;
-    var svg = d3.select('#friendlist').append('svg')
-                .attr('width', width)
-                .attr('height', height)
-                .attr('class', 'bubble');
-    defs = svg.append('defs');
-    var rootG = svg.append('g')
-                   .attr('transform',
-                         'translate(' + MAX_RADIUS + ',' + MAX_RADIUS + ')');
+    createdCircles = [];
 
-    quadtree = d3.geom.quadtree().extent([[0, 0], [width, height]])([]);
-    width -= 2 * MAX_RADIUS;
-    height -= 2 * MAX_RADIUS;
+    // use container size to draw it
+    var width = container.width();
+    var height = container.height();
+    var circleContainer = document.createElement('div');
+    circleContainer.classList.add('friends-container');
+    container.append(circleContainer);
+    // inner size
+    width -= STANDARD_SIZE;
+    height -= STANDARD_SIZE;
+    // create self circle
+    createMySelf($(circleContainer), width, height);
+
     var friendCount = friends.length;
-    var selfNode = createMySelf(rootG, width, height);
     d3.timer(function() {
       var f = friends[friends.length - friendCount];
-      createFriendCircle(container, rootG, f, width, height, maxValue, listener);
+      createFriendCircle($(circleContainer), f, width, height, maxValue, listener);
       return !(--friendCount);
     });
   };
