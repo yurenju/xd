@@ -124,6 +124,9 @@
                            'scale(' + scale + ')';
     container.append($(item));
     item.dataset.name = name;
+    item.dataset.axleX = Math.round(x);
+    item.dataset.axleY = Math.round(y);
+    item.dataset.scale = scale;
     $(item).mouseenter(function() {
       item.classList.add('focused');
       item.style.transform = 'translate(' + Math.round(x) + 'px, ' +

@@ -53,6 +53,17 @@ $(document).ready(function() {
     runWordFreq($('#feeds').text());
   });
 
+  // $('#searchFriendBT').click(function(){
+  //   findFriendCircle();
+  // });
+
+  $('#friendSearch').keypress(function(evt) {
+    if(evt.which == 13) {
+      evt.preventDefault();
+      findFriendCircle();
+    }
+  });
+
   $('#searchBT').click(function(){
     $('#comment_wrap').html('');
     var searchText = $('#xdSearch').val();
@@ -172,6 +183,30 @@ function userInfo () {
       }
     }
   );
+}
+
+function findFriendCircle() {
+  var searchName = $('#friendSearch').val().toLowerCase();
+  searchName = searchName.trim();
+
+  // clean previous circle 
+  if ($('div.avatar.selected').length > 0) {
+    var el = $('div.avatar.selected');
+      el.css('transform', 'translate(' + el.data('axleX') + 
+                                'px,' + el.data('axleY') + 'px) ' + 
+                  'scale('+ el.data('scale') +')').removeClass('selected');
+  }
+
+  // find circle
+  $('div.avatar.friend').each(function() {
+    var targetName = $(this).data('name').toLowerCase();
+    if (targetName === searchName) {
+      $(this).addClass('selected');
+      $(this).css('transform', 'translate(' + $(this).data('axleX') + 'px, ' +
+                          $(this).data('axleY') + 'px) ' + 'scale(1.5)');
+      return false;
+    }
+  });
 }
 
 function displayFeedSection(id, name) {
