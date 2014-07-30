@@ -47,18 +47,19 @@
   font-weight: normal;
   font-size: 18px;
   /* Firefox */
-  -moz-transition: background-color 0.3s ease-in;
+  -moz-transition: 0.3s ease-in;
   /* WebKit */
-  -webkit-transition: background-color 0.3s ease-in;
+  -webkit-transition: 0.3s ease-in;
   /* Opera */
-  -o-transition: background-color 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
   /* Standard */
-  transition: background-color 0.3s ease-in;
+  transition: 0.3s ease-in;
   background-color: rgba(68, 250, 207, 0.7);
 }
 
 .avatar:hover .avatar-name {
   background-color: rgba(68, 250, 207, 0);
+  color: rgba(255, 255, 255, 0);
 }
 
 .avatar.userSelf {
