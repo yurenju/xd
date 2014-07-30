@@ -89,7 +89,7 @@
       return;
     }
 
-    var imgSrc = 'https://graph.facebook.com/' + f.uid + '/picture?type=normal';
+    var imgSrc = 'https://graph.facebook.com/' + f.uid + '/picture?type=large';
     var friend = createItem(container, imgSrc, f.name, circle.x, circle.y,
                             circle.radius / defRadius);
 
