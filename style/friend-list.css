@@ -5,10 +5,10 @@
   border-radius: 50%;
   background-color: #44eace;
   position: relative;
-  -webkit-transition: 1s ease-in-out;
-  -moz-transition: 1s ease-in-out;
-  -o-transition: 1s ease-in-out;
-  transition: 1s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 .avatar:hover {
   cursor: pointer;
@@ -16,7 +16,10 @@
 
 .avatar.friend {
   position: absolute;
-  transform-origin: 0 0;
+}
+
+.avatar.friend.focused {
+  z-index: 9999;
 }
 
 .avatar .avatar-image {
@@ -27,7 +30,7 @@
   left: 4px;
   top: 4px;
   background-size: 128px auto;
-  background-position: 0 0;
+  background-position: center center;
   background-repeat: no-repeat;
 }
 
@@ -43,7 +46,7 @@
   text-align: center;
   font-weight: normal;
   font-size: 18px;
-    /* Firefox */
+  /* Firefox */
   -moz-transition: background-color 0.3s ease-in;
   /* WebKit */
   -webkit-transition: background-color 0.3s ease-in;
@@ -54,7 +57,7 @@
   background-color: rgba(68, 250, 207, 0.7);
 }
 
-.avatar:hover .avatar-name{
+.avatar:hover .avatar-name {
   background-color: rgba(68, 250, 207, 0);
 }
 

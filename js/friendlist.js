@@ -90,10 +90,8 @@
     }
 
     var imgSrc = 'https://graph.facebook.com/' + f.uid + '/picture?type=normal';
-    var friend = createItem(container, imgSrc, f.name,
-                            circle.x - circle.radius, // x
-                            circle.y - circle.radius, // y
-                            circle.radius / defRadius);// scale
+    var friend = createItem(container, imgSrc, f.name, circle.x, circle.y,
+                            circle.radius / defRadius);
 
     createdCircles[createdCircles.length] = circle;
 
@@ -126,13 +124,24 @@
                            'scale(' + scale + ')';
     container.append($(item));
     item.dataset.name = name;
+    $(item).mouseenter(function() {
+      item.classList.add('focused');
+      item.style.transform = 'translate(' + Math.round(x) + 'px, ' +
+                                            Math.round(y) + 'px) ' +
+                             'scale(1.5)';
+
+    }).mouseleave(function() {
+      item.classList.remove('focused');
+      item.style.transform = 'translate(' + Math.round(x) + 'px, ' +
+                                            Math.round(y) + 'px) ' +
+                             'scale(' + scale + ')';
+    });
     return $(item);
   }
 
   function createMySelf(container, width, height) {
     var item = createItem(container, $('#usericon').attr('src'),
-                          $('#username').text(), width / 2 - STANDARD_SIZE / 2,
-                          height / 2 - STANDARD_SIZE / 2, 1);
+                          $('#username').text(), width / 2, height / 2, 1);
     item.addClass('userSelf');
 
     createdCircles[createdCircles.length] = {
