@@ -392,7 +392,7 @@ function runWordFreq(text) {
 function showFriendIcon(id, name) {
   //friendAvatar, friendName
   var avatarURL = "https://graph.facebook.com/" + id + "/picture?type=large";
-  $('#friendAvatar').css('background', 'url(' + avatarURL + ') center center no-repeat');
+  $('#friendAvatar').css('background-image', 'url(' + avatarURL + ')');
   var getFontSize = calcFontSize($('#friendName'), 16, name, 64 * 3);
   console.log('avatarURL:' + getFontSize);
   $('#friendName').html(name).css('font-size', getFontSize);
