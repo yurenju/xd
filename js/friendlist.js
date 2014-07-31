@@ -102,6 +102,24 @@
     });
   }
 
+  function fillTransform(jquery, x, y, scale) {
+    jquery.css('transform', 'translate(' + Math.round(x) + 'px, ' +
+                                           Math.round(y) + 'px) ' +
+                            'scale(' + scale + ')'); // standard
+    jquery.css('-webkit-transform', 'translate(' + Math.round(x) + 'px, ' +
+                                                   Math.round(y) + 'px) ' +
+                                    'scale(' + scale + ')'); // webkits
+    jquery.css('-moz-transform', 'translate(' + Math.round(x) + 'px, ' +
+                                                Math.round(y) + 'px) ' +
+                                 'scale(' + scale + ')'); // mozilla
+    jquery.css('-ms-transform', 'translate(' + Math.round(x) + 'px, ' +
+                                               Math.round(y) + 'px) ' +
+                                'scale(' + scale + ')'); // ie
+    jquery.css('-o-transform', 'translate(' + Math.round(x) + 'px, ' +
+                                              Math.round(y) + 'px) ' +
+                               'scale(' + scale + ')'); // opera
+  }
+
   function createItem(container, image, name, x, y, scale) {
     var item = document.createElement('div');
     item.classList.add('avatar');
@@ -119,27 +137,25 @@
 
     item.appendChild(img);
     item.appendChild(userName);
-    item.style.transform = 'translate(' + Math.round(x) + 'px, ' +
-                                          Math.round(y) + 'px) ' +
-                           'scale(' + scale + ')';
-    container.append($(item));
+    var jqItem = $(item);
+
+    fillTransform(jqItem, x, y, scale);
+    container.append(jqItem);
     item.dataset.name = name;
     item.dataset.axleX = Math.round(x);
     item.dataset.axleY = Math.round(y);
     item.dataset.scale = scale;
-    $(item).mouseenter(function() {
+
+    jqItem.mouseenter(function() {
       item.classList.add('focused');
-      item.style.transform = 'translate(' + Math.round(x) + 'px, ' +
-                                            Math.round(y) + 'px) ' +
-                             'scale(1.5)';
+      fillTransform(jqItem, x, y, 1.5);
 
     }).mouseleave(function() {
       item.classList.remove('focused');
-      item.style.transform = 'translate(' + Math.round(x) + 'px, ' +
-                                            Math.round(y) + 'px) ' +
-                             'scale(' + scale + ')';
+      fillTransform(jqItem, x, y, scale);
     });
-    return $(item);
+
+    return jqItem;
   }
 
   function createMySelf(container, width, height) {
