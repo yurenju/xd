@@ -487,10 +487,14 @@ function showResult(entries, searchText) {
   entries.forEach(function(entry) {
     var message = null,
         image = null,
-        comments = null;
-    var date = entry.created_time.substring(0, entry.created_time.lastIndexOf('T'));
+        comments = null,
+        postInfo = entry.id.split('_');
+    var date = 
+          entry.created_time.substring(0, entry.created_time.lastIndexOf('T'));
     var whoSaid = entry.from.name;
     var scroes = entry.scroes;
+    var postLink = 'https://www.facebook.com/' + 
+                    postInfo[0] + '/posts/' + postInfo[1] + '/';
     var ratio = 1;
     if (index === 0) {
       maxScroes = scroes;
@@ -533,7 +537,8 @@ function showResult(entries, searchText) {
       '<div class="circle_score" data-style="rgb('+ red +', 31, 170)">'+scroes+'</div>' +
       '<div class="comment_content">' +
         '<div class="comment_date">' +
-          '<p><time>' + date + '</time>' + whoSaid + '</p>';
+          '<p><time><a href="' + postLink + '" target="_blank">' + date + '</a>' +
+          '</time>' + whoSaid + '</p>';
     if (comments !== null) {
       result = result + '<a class="btn_spread" href="#" title="展開留言">' +
           '展開留言</a><!-- 收合換 btn_collapse class-->';
