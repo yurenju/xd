@@ -146,6 +146,7 @@ function fb_init() {
       console.log('login!!!' + response.authResponse.userID);
       userInfo();
       getMyFriend()
+      switchElement($('#fblogin'), 'off');
       // switchElement($('#getBT'), 'on');
     } else if (response.status === 'not_authorized') {
       // the user is logged in to Facebook,
@@ -179,7 +180,7 @@ function userInfo () {
         // $('#usericon').click(function() {
         //   getUserFeed(response.id);
         // });
-        switchElement($('#userinfo'), 'on');
+        // switchElement($('#userinfo'), 'on');
       }
     }
   );
