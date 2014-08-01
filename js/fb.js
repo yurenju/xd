@@ -492,9 +492,17 @@ function showResult(entries, searchText) {
     var date = 
           entry.created_time.substring(0, entry.created_time.lastIndexOf('T'));
     var whoSaid = entry.from.name;
+    var userID = entry.from.id;
     var scroes = entry.scroes;
-    var postLink = 'https://www.facebook.com/' + 
-                    postInfo[0] + '/posts/' + postInfo[1] + '/';
+    var postLink = null;
+    if (postInfo[0] === userID) {
+      postLink = 'https://www.facebook.com/' + 
+                    postInfo[0] + '/posts/' + postInfo[1];
+    } else {
+      postLink = 'https://www.facebook.com/' + 
+                userID + '/posts/' + postInfo[0] + '?comment_id=' + postInfo[1];
+    }
+  
     var ratio = 1;
     if (index === 0) {
       maxScroes = scroes;
