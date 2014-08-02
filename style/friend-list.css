@@ -63,7 +63,7 @@
 }
 
 .avatar.userSelf {
-  display: none;
+  visibility: hidden;
 }
 
 #friendlist {

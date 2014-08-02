@@ -50,22 +50,13 @@ strong {
   transform: translate(0, 50px);
 }
 
-#cube-outer.friend-list {
-  -webkit-transform: translate(0, 1050px) scale(0.3);
-     -moz-transform: translate(0, 1050px) scale(0.3);
-      -ms-transform: translate(0, 1050px) scale(0.3);
-       -o-transform: translate(0, 1050px) scale(0.3);
-          transform: translate(0, 1050px) scale(0.3);
-}
 #cube-outer.friend-list:hover {
   cursor: pointer;
 }
-#cube-outer.word-cloud {
-  -webkit-transform: translate(400px, 1680px) scale(0.3);
-     -moz-transform: translate(400px, 1680px) scale(0.3);
-      -ms-transform: translate(400px, 1680px) scale(0.3);
-       -o-transform: translate(400px, 1680px) scale(0.3);
-          transform: translate(400px, 1680px) scale(0.3);
+#cube-wordcloud {
+  float: right;
+  width: 100px;
+  height: 100px;
 }
 
  #cube {

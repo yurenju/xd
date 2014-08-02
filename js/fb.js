@@ -2,6 +2,25 @@
 var UserID = null;
 var accessToken = null;
 var xdinfo = null;
+var cubePos = null;
+var cubeOriginalHeight = null;
+var cubeOriginalWidth = null;
+
+function moveCube(original, destElement, scale, cube) {
+  var pos = { x: 0, y: 0 };
+  var targetPos = getPosition(destElement);
+  pos.x = targetPos.centerX - original.centerX;
+  pos.y = targetPos.centerY - original.centerY;
+  cube.css('transform',
+    'translate(' + pos.x + 'px, ' + pos.y + 'px) scale(' + scale + ')');
+}
+
+function getPosition(element) {
+  var pos = element.offset();
+  pos.centerX = pos.left + element.width() / 2;
+  pos.centerY = pos.top + element.height() / 2;
+  return pos;
+}
 
 function keyword(searchText) {
   var xds = xdinfo.getItems(searchText);
@@ -38,6 +57,7 @@ function smoothScrolling(hash) {
 }
 
 $(document).ready(function() {
+  cubePos = getPosition($('#cube-outer'));
 
   $.ajaxSetup({ cache: true });
   $.getScript('//connect.facebook.net/en_UK/all.js', fb_init);
@@ -89,6 +109,7 @@ $(document).ready(function() {
   $('#tell-me-more').click(function() {
     box.addClass('spin');
     $('#cube-outer').addClass('friend-list');
+    moveCube(cubePos, $('.userSelf'), 0.3, $('#cube-outer'));
   });
 
   var prev = 'right';
@@ -119,10 +140,12 @@ $(document).ready(function() {
   $('#back-to-banner').click(function() {
     $('#cube').removeClass('spin');
     $('#cube-outer').removeClass('friend-list');
+    $('#cube-outer').css('transform', 'translate( 0px, 0px) scale(1.0)');
   });
   $('#back-to-friend-list').click(function() {
     $('#cube-outer').removeClass('word-cloud');
     $('#cube-outer').addClass('friend-list');
+    moveCube(cubePos, $('.userSelf'), 0.3, $('#cube-outer'));
   });
 });
 
@@ -190,11 +213,11 @@ function findFriendCircle() {
   var searchName = $('#friendSearch').val().toLowerCase();
   searchName = searchName.trim();
 
-  // clean previous circle 
+  // clean previous circle
   if ($('div.avatar.selected').length > 0) {
     var el = $('div.avatar.selected');
-      el.css('transform', 'translate(' + el.data('axleX') + 
-                                'px,' + el.data('axleY') + 'px) ' + 
+      el.css('transform', 'translate(' + el.data('axleX') +
+                                'px,' + el.data('axleY') + 'px) ' +
                   'scale('+ el.data('scale') +')').removeClass('selected');
   }
 
@@ -211,6 +234,8 @@ function findFriendCircle() {
 }
 
 function displayFeedSection(id, name) {
+  moveCube(cubePos, $('#cube-wordcloud'), 0.3, $('#cube-outer'));
+
   var canvas = $('#wc-canvas-canvas');
   var ctx = canvas[0].getContext('2d');
   ctx.clearRect(0, 0, canvas.width(), canvas.height());
@@ -343,8 +368,6 @@ function runWordFreq(text) {
   var hoverElement = $('#wc-canvas-hover');
   var hoverLabelElement = $('#wc-canvas-hover-label');
 
-
-
   var wordfreqOption = { workerUrl: 'vendor/wordfreq/src/wordfreq.worker.js' };
   WordFreq(wordfreqOption).process(normalText.processed, function(list) {
     var pizaList = list.concat(xDegrees);
@@ -367,7 +390,7 @@ function runWordFreq(text) {
             }
 
             el.removeAttr('hidden');
-            el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 40) + 'px');
+            el.css('transform', 'translate(' + (dimension.x + 20) + 'px, ' + (dimension.y + 100) + 'px');
             el.css('width', dimension.w + 'px');
             el.css('height', dimension.h + 'px');
             hoverLabelElement.text(item[0] + ':' + (item[1] - 10));
@@ -490,20 +513,20 @@ function showResult(entries, searchText) {
         image = null,
         comments = null,
         postInfo = entry.id.split('_');
-    var date = 
+    var date =
           entry.created_time.substring(0, entry.created_time.lastIndexOf('T'));
     var whoSaid = entry.from.name;
     var userID = entry.from.id;
     var scroes = entry.scroes;
     var postLink = null;
     if (postInfo[0] === userID) {
-      postLink = 'https://www.facebook.com/' + 
+      postLink = 'https://www.facebook.com/' +
                     postInfo[0] + '/posts/' + postInfo[1];
     } else {
-      postLink = 'https://www.facebook.com/' + 
+      postLink = 'https://www.facebook.com/' +
                 userID + '/posts/' + postInfo[0] + '?comment_id=' + postInfo[1];
     }
-  
+
     var ratio = 1;
     if (index === 0) {
       maxScroes = scroes;
